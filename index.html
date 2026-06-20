@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth bg-slate-950 text-slate-300" style="scroll-padding-top: 5rem;">
+<html lang="en" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,322 +7,504 @@
     <meta name="theme-color" content="#0d1117">
     <title>DrkingBD | Cybersecurity & Cloud Architecture</title>
     
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     
     <!-- Google Fonts: Inter for UI, Fira Code for Terminal -->
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Tailwind Configuration & Custom Styles -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['Fira Code', 'monospace'],
-                    },
-                    colors: {
-                        cyber: {
-                            green: '#00ff41',
-                            dark: '#0d1117',
-                            border: '#30363d',
-                            panel: '#161b22',
-                            accent: '#58a6ff'
-                        }
-                    },
-                    animation: {
-                        'blink': 'blink 1s step-end infinite',
-                        'float': 'float 6s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        blink: {
-                            '0%, 100%': { opacity: '1' },
-                            '50%': { opacity: '0' },
-                        },
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- Custom CSS (Replacing Tailwind utilities) -->
     <style>
-        /* Custom scrollbar for webkit */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0d1117; }
-        ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #58a6ff; }
+        :root {
+            --cyber-green: #00ff41;
+            --cyber-green-dim: rgba(0, 255, 65, 0.1);
+            --cyber-green-glow: rgba(0, 255, 65, 0.4);
+            --cyber-dark: #0d1117;
+            --cyber-border: #30363d;
+            --cyber-panel: #161b22;
+            --cyber-accent: #58a6ff;
+            --cyber-accent-glow: rgba(88, 166, 255, 0.1);
+            --cyber-purple: #a855f7;
+            --cyber-red: #ef4444;
+            --text-main: #cbd5e1; /* slate-300 */
+            --text-muted: #94a3b8; /* slate-400 */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--cyber-dark);
+            background-image: radial-gradient(ellipse 80% 80% at 50% -20%, rgba(0,255,65,0.07), rgba(13,17,23,1));
+            color: var(--text-main);
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+        }
+
+        /* Typography & Utilities */
+        .font-mono { font-family: 'Fira Code', monospace; }
+        .text-cyber-green { color: var(--cyber-green) !important; }
+        .text-cyber-accent { color: var(--cyber-accent) !important; }
+        .text-cyber-purple { color: var(--cyber-purple) !important; }
+        .text-cyber-red { color: var(--cyber-red) !important; }
+        .bg-cyber-dark { background-color: var(--cyber-dark) !important; }
+        .bg-cyber-panel { background-color: var(--cyber-panel) !important; }
+        .border-cyber { border-color: var(--cyber-border) !important; }
         
-        .glass-panel {
+        ::selection { background-color: var(--cyber-green); color: #000; }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--cyber-dark); }
+        ::-webkit-scrollbar-thumb { background: var(--cyber-border); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--cyber-accent); }
+
+        .glass-nav {
             background: rgba(22, 27, 34, 0.75);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(48, 54, 61, 0.8);
+            transition: all 0.3s ease;
+        }
+
+        .nav-link {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.875rem;
+            color: var(--text-muted) !important;
+            transition: color 0.2s ease;
+        }
+        .nav-link:hover { color: var(--cyber-green) !important; }
+        
+        .navbar-toggler { border-color: var(--cyber-border); color: var(--text-muted); }
+        .navbar-toggler:focus { box-shadow: none; }
+
+        .btn-cyber-primary {
+            background-color: var(--cyber-green);
+            color: #000;
+            font-weight: 600;
+            border: none;
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn-cyber-primary:hover {
+            background-color: #34d399; /* green-400 equivalent */
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .btn-cyber-outline {
+            background-color: var(--cyber-panel);
+            color: #fff;
+            font-weight: 600;
+            border: 1px solid var(--cyber-border);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn-cyber-outline:hover {
+            background-color: #1e293b;
+            border-color: #475569;
+            color: #fff;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.375rem 1rem;
+            border-radius: 50rem;
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            background-color: var(--cyber-green-dim);
+            color: var(--cyber-green);
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.1);
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        .animate-blink { animation: blink 1s step-end infinite; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        
+        .pulse-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background-color: var(--cyber-green);
+            display: inline-block;
+            margin-right: 8px;
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+
+        .terminal-window {
+            border-radius: 0.75rem;
+            border: 1px solid var(--cyber-border);
+            background-color: var(--cyber-dark);
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 20px var(--cyber-green-dim);
+        }
+        .terminal-header {
+            background-color: var(--cyber-panel);
+            border-bottom: 1px solid var(--cyber-border);
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        .terminal-mac-btns {
+            display: flex;
+            gap: 0.5rem;
+            position: absolute;
+            left: 1rem;
+        }
+        .mac-btn { width: 12px; height: 12px; border-radius: 50%; box-shadow: inset 0 1px 2px rgba(0,0,0,0.2); }
+        .mac-red { background-color: #ef4444; }
+        .mac-yellow { background-color: #f59e0b; }
+        .mac-green { background-color: #10b981; }
+
+        .cyber-card {
+            background-color: #11151c;
+            border: 1px solid var(--cyber-border);
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .cyber-card:hover { border-color: var(--cyber-green); box-shadow: 0 0 20px rgba(0, 255, 65, 0.05); transform: translateY(-3px); }
+        .cyber-card-accent:hover { border-color: var(--cyber-accent); box-shadow: 0 0 20px var(--cyber-accent-glow); }
+        .cyber-card-purple:hover { border-color: var(--cyber-purple); box-shadow: 0 0 20px rgba(168, 85, 247, 0.05); }
+        .cyber-card-red:hover { border-color: var(--cyber-red); box-shadow: 0 0 20px rgba(239, 68, 68, 0.05); }
+
+        .card-top-bar { height: 6px; width: 100%; }
+        .bg-gradient-green { background: linear-gradient(to right, #10b981, #047857); }
+        .bg-gradient-blue { background: linear-gradient(to right, #3b82f6, #0891b2); }
+        .bg-gradient-purple { background: linear-gradient(to right, #a855f7, #a21caf); }
+        .bg-gradient-red { background: linear-gradient(to right, #ef4444, #ea580c); }
+
+        .tech-tag {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.7rem;
+            padding: 0.25rem 0.5rem;
+            background-color: var(--cyber-dark);
+            border: 1px solid var(--cyber-border);
+            border-radius: 0.25rem;
+            color: var(--text-main);
+            display: inline-block;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .icon-box {
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        .modal-active { overflow: hidden; }
+        .section-padding { padding-top: 6rem; padding-bottom: 6rem; }
+        .border-top-cyber { border-top: 1px solid var(--cyber-border); }
 
-        /* Optimize text rendering for performance and readability */
-        body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
+        /* Modal Overrides */
+        .modal-content {
+            background-color: var(--cyber-panel);
+            border: 1px solid var(--cyber-border);
+            border-radius: 0.75rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        .btn-close-custom {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            transition: color 0.2s;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+        }
+        .btn-close-custom:hover { color: #fff; }
+
+        /* Utility specific for the grid */
+        .gap-3-custom { gap: 1rem; }
     </style>
 </head>
-<body class="selection:bg-cyber-green selection:text-black bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(0,255,65,0.07),rgba(13,17,23,1))] min-h-screen">
+<body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
 
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 glass-panel transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex-shrink-0 flex items-center gap-2 group cursor-pointer" onclick="window.scrollTo(0,0)">
-                    <i data-lucide="shield-alert" class="text-cyber-green h-6 w-6 group-hover:animate-pulse"></i>
-                    <span class="font-mono font-bold text-white text-lg tracking-tight">DrkingBD<span class="text-cyber-green">.cc</span></span>
-                </div>
-                <div class="hidden md:flex space-x-8 font-mono text-sm">
-                    <a href="#about" class="text-slate-400 hover:text-cyber-green transition-colors duration-200">~/about</a>
-                    <a href="#skills" class="text-slate-400 hover:text-cyber-green transition-colors duration-200">~/skills</a>
-                    <a href="#projects" class="text-slate-400 hover:text-cyber-green transition-colors duration-200">~/projects</a>
-                    <a href="#contact" class="text-slate-400 hover:text-cyber-green transition-colors duration-200">~/contact</a>
-                </div>
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-slate-400 hover:text-white transition-colors" aria-label="Toggle menu">
-                        <i data-lucide="menu" class="h-6 w-6"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <!-- Mobile menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-cyber-panel border-b border-cyber-border shadow-xl">
-            <div class="px-4 pt-2 pb-4 space-y-2 font-mono text-sm">
-                <a href="#about" class="block py-2 text-slate-400 hover:text-cyber-green">~/about</a>
-                <a href="#skills" class="block py-2 text-slate-400 hover:text-cyber-green">~/skills</a>
-                <a href="#projects" class="block py-2 text-slate-400 hover:text-cyber-green">~/projects</a>
-                <a href="#contact" class="block py-2 text-slate-400 hover:text-cyber-green">~/contact</a>
+    <nav id="navbar" class="navbar navbar-expand-md fixed-top glass-nav py-3">
+        <div class="container-fluid max-w-7xl px-4 px-lg-5">
+            <a class="navbar-brand d-flex align-items-center gap-2 text-white" href="#" onclick="window.scrollTo(0,0)">
+                <i data-lucide="shield-alert" class="text-cyber-green" style="width: 24px; height: 24px;"></i>
+                <span class="font-mono fw-bold fs-5 tracking-tight mb-0">DrkingBD<span class="text-cyber-green">.cc</span></span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i data-lucide="menu"></i>
+            </button>
+            
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav gap-2 gap-md-4 mt-3 mt-md-0">
+                    <li class="nav-item"><a class="nav-link" href="#about">~/about</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#skills">~/skills</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects">~/projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">~/contact</a></li>
+                </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="about" class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-14">
-        <div class="w-full lg:w-1/2 space-y-6">
-            <div class="inline-flex items-center px-4 py-1.5 rounded-full border border-cyber-green/30 bg-cyber-green/5 text-cyber-green text-xs font-mono mb-2 shadow-[0_0_10px_rgba(0,255,65,0.1)]">
-                <span class="w-2 h-2 rounded-full bg-cyber-green animate-pulse mr-2"></span>
-                System Status: All systems green. Monitoring active.
-            </div>
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-tight">
-                Securing the Edge. <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyber-green to-emerald-400">Protecting the Core.</span>
-            </h1>
-            <p class="text-lg text-slate-300 max-w-2xl leading-relaxed font-light">
-                Hi, I'm <strong class="text-white font-medium">DrkingBD</strong>. I'm a cybersecurity professional who specializes in building highly resilient edge architectures and actively hunting down threats before they become a problem. I believe in zero-trust environments that are robust, resilient, and ready for whatever comes next.
-            </p>
-            <div class="flex flex-wrap gap-4 pt-4">
-                <a href="#projects" class="px-6 py-3 bg-cyber-green text-black font-semibold rounded-md hover:bg-green-400 transition-all shadow-[0_0_15px_rgba(0,255,65,0.2)] hover:shadow-[0_0_20px_rgba(0,255,65,0.4)] flex items-center gap-2">
-                    <i data-lucide="terminal" class="h-4 w-4"></i> See My Work
-                </a>
-                <a href="#contact" class="px-6 py-3 bg-cyber-panel border border-cyber-border text-white font-semibold rounded-md hover:bg-slate-800 hover:border-slate-600 transition-all flex items-center gap-2">
-                    <i data-lucide="coffee" class="h-4 w-4"></i> Let's Talk
-                </a>
-            </div>
-        </div>
-        
-        <!-- Terminal Mockup -->
-        <div class="w-full lg:w-1/2 rounded-xl border border-cyber-border bg-[#0d1117] overflow-hidden shadow-2xl shadow-cyber-green/5 animate-float">
-            <div class="flex items-center px-4 py-3 bg-[#161b22] border-b border-cyber-border relative">
-                <div class="flex space-x-2 absolute left-4">
-                    <div class="w-3 h-3 rounded-full bg-red-500/80 shadow-inner"></div>
-                    <div class="w-3 h-3 rounded-full bg-yellow-500/80 shadow-inner"></div>
-                    <div class="w-3 h-3 rounded-full bg-green-500/80 shadow-inner"></div>
+    <section id="about" class="container-fluid px-4 px-lg-5 section-padding mt-5">
+        <div class="row align-items-center mx-auto" style="max-width: 1200px; padding-top: 4rem;">
+            <div class="col-lg-6 mb-5 mb-lg-0 pe-lg-5">
+                <div class="status-badge mb-4">
+                    <span class="pulse-dot"></span>
+                    System Status: All systems green. Monitoring active.
                 </div>
-                <div class="mx-auto text-xs font-mono text-slate-400 tracking-wider">drking@soc-terminal</div>
+                <h1 class="display-4 fw-bold text-white lh-sm mb-4">
+                    Securing the Edge. <br>
+                    <span style="background: linear-gradient(to right, #00ff41, #34d399); -webkit-background-clip: text; color: transparent;">Protecting the Core.</span>
+                </h1>
+                <p class="lead text-muted fw-light mb-5 fs-5">
+                    Hi, I'm <strong class="text-white fw-medium">DrkingBD</strong>. I'm a cybersecurity professional who specializes in building highly resilient edge architectures and actively hunting down threats before they become a problem. I believe in zero-trust environments that are robust, resilient, and ready for whatever comes next.
+                </p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="#projects" class="btn btn-cyber-primary px-4 py-2">
+                        <i data-lucide="terminal" style="width: 18px; height: 18px;"></i> See My Work
+                    </a>
+                    <a href="#contact" class="btn btn-cyber-outline px-4 py-2">
+                        <i data-lucide="coffee" style="width: 18px; height: 18px;"></i> Let's Talk
+                    </a>
+                </div>
             </div>
-            <div class="p-5 font-mono text-sm leading-relaxed overflow-x-auto text-slate-300">
-                <p><span class="text-cyber-green">drking@soc:~$</span> ./start_defense_matrix.sh</p>
-                <p class="text-slate-500 mt-2">[+] Initializing global packet capture...</p>
-                <p class="text-slate-500">[+] Loading dynamic YARA rulesets...</p>
-                <p class="text-slate-400 mt-2">Watching traffic patterns in real-time...</p>
-                <p class="text-yellow-400 mt-2">⚠️ [WARN] Anomalous TLS handshake on port 443.</p>
-                <p class="text-yellow-400/80 pl-4">Source: 10.0.5.22 (internal-vlan)</p>
-                <p class="text-yellow-400/80 pl-4">Dest: 185.15.22.x (Known C2 Node)</p>
-                <p class="text-cyber-accent mt-3">⚡ [ACTION] Triaging via automated SOAR pipeline...</p>
-                <p class="text-cyber-green mt-1">✓ [SECURE] Threat neutralized. Edge firewall rules updated.</p>
-                <p class="mt-4"><span class="text-cyber-green">drking@soc:~$</span> <span class="animate-blink bg-slate-300 w-2.5 h-4 inline-block align-middle"></span></p>
+            
+            <!-- Terminal Mockup -->
+            <div class="col-lg-6">
+                <div class="terminal-window animate-float">
+                    <div class="terminal-header">
+                        <div class="terminal-mac-btns">
+                            <div class="mac-btn mac-red"></div>
+                            <div class="mac-btn mac-yellow"></div>
+                            <div class="mac-btn mac-green"></div>
+                        </div>
+                        <div class="font-mono text-muted text-center w-100" style="font-size: 0.75rem; letter-spacing: 0.05em;">drking@soc-terminal</div>
+                    </div>
+                    <div class="p-4 font-mono text-main lh-lg" style="font-size: 0.875rem;">
+                        <p class="mb-1"><span class="text-cyber-green">drking@soc:~$</span> ./start_defense_matrix.sh</p>
+                        <p class="text-muted mb-1">[+] Initializing global packet capture...</p>
+                        <p class="text-muted mb-3">[+] Loading dynamic YARA rulesets...</p>
+                        <p class="mb-3" style="color: #94a3b8;">Watching traffic patterns in real-time...</p>
+                        <p class="text-warning mb-0">⚠️ [WARN] Anomalous TLS handshake on port 443.</p>
+                        <p class="text-warning mb-0" style="opacity: 0.8; padding-left: 1rem;">Source: 10.0.5.22 (internal-vlan)</p>
+                        <p class="text-warning mb-3" style="opacity: 0.8; padding-left: 1rem;">Dest: 185.15.22.x (Known C2 Node)</p>
+                        <p class="text-cyber-accent mb-2">⚡ [ACTION] Triaging via automated SOAR pipeline...</p>
+                        <p class="text-cyber-green mb-4">✓ [SECURE] Threat neutralized. Edge firewall rules updated.</p>
+                        <p class="mb-0"><span class="text-cyber-green">drking@soc:~$</span> <span class="animate-blink d-inline-block align-middle" style="background-color: #cbd5e1; width: 10px; height: 16px;"></span></p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Skills/Tech Stack -->
-    <section id="skills" class="py-24 border-t border-cyber-border bg-gradient-to-b from-slate-950 to-[#0a0d12]">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-12">
-                <h2 class="text-3xl font-bold text-white mb-2 flex items-center gap-3">
-                    <i data-lucide="cpu" class="h-8 w-8 text-cyber-accent"></i> What I Do Best
+    <section id="skills" class="container-fluid px-4 px-lg-5 section-padding border-top-cyber" style="background: linear-gradient(to bottom, #020617, #0a0d12);">
+        <div class="mx-auto" style="max-width: 1200px;">
+            <div class="mb-5">
+                <h2 class="display-6 fw-bold text-white mb-2 d-flex align-items-center gap-3">
+                    <i data-lucide="cpu" class="text-cyber-accent" style="width: 32px; height: 32px;"></i> What I Do Best
                 </h2>
-                <p class="text-slate-400 font-mono text-sm">>> cat /home/drkingbd/capabilities.txt</p>
+                <p class="text-muted font-mono" style="font-size: 0.875rem;">>> cat /home/drkingbd/capabilities.txt</p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Defensive Security -->
-                <div class="bg-cyber-panel border border-cyber-border rounded-xl p-6 hover:border-cyber-green/50 transition-colors duration-300 shadow-lg">
-                    <div class="flex items-center gap-3 mb-5">
-                        <div class="p-2.5 bg-blue-500/10 rounded-lg text-blue-400 border border-blue-500/20"><i data-lucide="shield" class="h-6 w-6"></i></div>
-                        <h3 class="text-lg font-semibold text-white leading-tight">Defending the Fort <br><span class="text-sm font-normal text-slate-400">(Blue Team)</span></h3>
+            <div class="row g-4">
+                <!-- Blue Team -->
+                <div class="col-md-4">
+                    <div class="bg-cyber-panel border border-cyber rounded-3 p-4 h-100" style="transition: border-color 0.3s;" onmouseover="this.style.borderColor='rgba(0,255,65,0.5)'" onmouseout="this.style.borderColor='var(--cyber-border)'">
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <div class="icon-box" style="background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.2); color: #60a5fa;">
+                                <i data-lucide="shield"></i>
+                            </div>
+                            <h3 class="h5 fw-semibold text-white mb-0 lh-sm">Defending the Fort <br><span class="fw-normal text-muted" style="font-size: 0.875rem;">(Blue Team)</span></h3>
+                        </div>
+                        <ul class="list-unstyled text-main" style="font-size: 0.875rem;">
+                            <li class="d-flex align-items-start mb-3"><i data-lucide="check" class="text-cyber-green mt-1 me-2 flex-shrink-0" style="width: 16px; height: 16px;"></i> <span>Building and tuning SIEMs (Splunk, ELK) to cut through the noise.</span></li>
+                            <li class="d-flex align-items-start mb-3"><i data-lucide="check" class="text-cyber-green mt-1 me-2 flex-shrink-0" style="width: 16px; height: 16px;"></i> <span>Rolling out comprehensive EDR/XDR solutions.</span></li>
+                            <li class="d-flex align-items-start mb-3"><i data-lucide="check" class="text-cyber-green mt-1 me-2 flex-shrink-0" style="width: 16px; height: 16px;"></i> <span>Deep-dive Network Traffic Analysis (Zeek, Wireshark).</span></li>
+                            <li class="d-flex align-items-start"><i data-lucide="check" class="text-cyber-green mt-1 me-2 flex-shrink-0" style="width: 16px; height: 16px;"></i> <span>Automating incident response so the team can sleep.</span></li>
+                        </ul>
                     </div>
-                    <ul class="space-y-3 text-slate-300 text-sm">
-                        <li class="flex items-start"><i data-lucide="check" class="h-4 w-4 mr-2.5 mt-0.5 text-cyber-green shrink-0"></i> <span>Building and tuning SIEMs (Splunk, ELK) to cut through the noise.</span></li>
-                        <li class="flex items-start"><i data-lucide="check" class="h-4 w-4 mr-2.5 mt-0.5 text-cyber-green shrink-0"></i> <span>Rolling out comprehensive EDR/XDR solutions.</span></li>
-                        <li class="flex items-start"><i data-lucide="check" class="h-4 w-4 mr-2.5 mt-0.5 text-cyber-green shrink-0"></i> <span>Deep-dive Network Traffic Analysis (Zeek, Wireshark).</span></li>
-                        <li class="flex items-start"><i data-lucide="check" class="h-4 w-4 mr-2.5 mt-0.5 text-cyber-green shrink-0"></i> <span>Automating incident response so the team can sleep.</span></li>
-                    </ul>
                 </div>
 
-                <!-- Cloud & Edge Architecture -->
-                <div class="bg-cyber-panel border border-cyber-border rounded-xl p-6 hover:border-cyber-accent/50 transition-colors duration-300 shadow-lg">
-                    <div class="flex items-center gap-3 mb-5">
-                        <div class="p-2.5 bg-purple-500/10 rounded-lg text-purple-400 border border-purple-500/20"><i data-lucide="cloud" class="h-6 w-6"></i></div>
-                        <h3 class="text-lg font-semibold text-white leading-tight">Building in the Cloud <br><span class="text-sm font-normal text-slate-400">(Edge & ZTNA)</span></h3>
+                <!-- Cloud/Edge -->
+                <div class="col-md-4">
+                    <div class="bg-cyber-panel border border-cyber rounded-3 p-4 h-100" style="transition: border-color 0.3s;" onmouseover="this.style.borderColor='rgba(88,166,255,0.5)'" onmouseout="this.style.borderColor='var(--cyber-border)'">
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <div class="icon-box" style="background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.2); color: #c084fc;">
+                                <i data-lucide="cloud"></i>
+                            </div>
+                            <h3 class="h5 fw-semibold text-white mb-0 lh-sm">Building in the Cloud <br><span class="fw-normal text-muted" style="font-size: 0.875rem;">(Edge & ZTNA)</span></h3>
+                        </div>
+                        <ul class="list-unstyled text-main" style="font-size: 0.875rem;">
+                            <li class="d-flex align-items-start mb-3"><i data-lucide="check" class="text-cyber-accent mt-1 me-2 flex-shrink-0" style="width: 16px; height: 16px;"></i> <span>Writing ultra-low latency security rules using Cloudflare Workers.</span></li>
+                            <li class="d-flex align-items-start mb-3"><i data-lucide="check" class="text-cyber-accent mt-1 me-2 flex-shrink-0" style="width: 16px; height: 16px;"></i> <span>Ditching VPNs for true Zero-Trust Network Access (ZTNA).</span></li>
+                            <li class="d-flex align-items-start mb-3"><i data-lucide="check" class="text-cyber-accent mt-1 me-2 flex-shrink-0" style="width: 16px; height: 16px;"></i> <span>Auditing AWS IAM and untangling messy Security Groups.</span></li>
+                            <li class="d-flex align-items-start"><i data-lucide="check" class="text-cyber-accent mt-1 me-2 flex-shrink-0" style="width: 16px; height: 16px;"></i> <span>Securing containerized workloads (Docker, Kubernetes).</span></li>
+                        </ul>
                     </div>
-                    <ul class="space-y-3 text-slate-300 text-sm">
-                        <li class="flex items-start"><i data-lucide="check" class="h-4 w-4 mr-2.5 mt-0.5 text-cyber-accent shrink-0"></i> <span>Writing ultra-low latency security rules using Cloudflare Workers.</span></li>
-                        <li class="flex items-start"><i data-lucide="check" class="h-4 w-4 mr-2.5 mt-0.5 text-cyber-accent shrink-0"></i> <span>Ditching VPNs for true Zero-Trust Network Access (ZTNA).</span></li>
-                        <li class="flex items-start"><i data-lucide="check" class="h-4 w-4 mr-2.5 mt-0.5 text-cyber-accent shrink-0"></i> <span>Auditing AWS IAM and untangling messy Security Groups.</span></li>
-                        <li class="flex items-start"><i data-lucide="check" class="h-4 w-4 mr-2.5 mt-0.5 text-cyber-accent shrink-0"></i> <span>Securing containerized workloads (Docker, Kubernetes).</span></li>
-                    </ul>
                 </div>
 
-                <!-- Threat Intel & Analysis -->
-                <div class="bg-cyber-panel border border-cyber-border rounded-xl p-6 hover:border-red-500/50 transition-colors duration-300 shadow-lg">
-                    <div class="flex items-center gap-3 mb-5">
-                        <div class="p-2.5 bg-red-500/10 rounded-lg text-red-400 border border-red-500/20"><i data-lucide="microscope" class="h-6 w-6"></i></div>
-                        <h3 class="text-lg font-semibold text-white leading-tight">Understanding the Threat <br><span class="text-sm font-normal text-slate-400">(Intel & Analysis)</span></h3>
+                <!-- Intel -->
+                <div class="col-md-4">
+                    <div class="bg-cyber-panel border border-cyber rounded-3 p-4 h-100" style="transition: border-color 0.3s;" onmouseover="this.style.borderColor='rgba(239,68,68,0.5)'" onmouseout="this.style.borderColor='var(--cyber-border)'">
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <div class="icon-box" style="background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); color: #f87171;">
+                                <i data-lucide="microscope"></i>
+                            </div>
+                            <h3 class="h5 fw-semibold text-white mb-0 lh-sm">Understanding the Threat <br><span class="fw-normal text-muted" style="font-size: 0.875rem;">(Intel & Analysis)</span></h3>
+                        </div>
+                        <ul class="list-unstyled text-main" style="font-size: 0.875rem;">
+                            <li class="d-flex align-items-start mb-3"><i data-lucide="check" class="text-cyber-red mt-1 me-2 flex-shrink-0" style="width: 16px; height: 16px;"></i> <span>Tearing apart malware (Reverse Engineering) to see how it ticks.</span></li>
+                            <li class="d-flex align-items-start mb-3"><i data-lucide="check" class="text-cyber-red mt-1 me-2 flex-shrink-0" style="width: 16px; height: 16px;"></i> <span>Mapping adversary behaviors to the MITRE ATT&CK Framework.</span></li>
+                            <li class="d-flex align-items-start mb-3"><i data-lucide="check" class="text-cyber-red mt-1 me-2 flex-shrink-0" style="width: 16px; height: 16px;"></i> <span>Crafting precise YARA rules to catch the bad guys.</span></li>
+                            <li class="d-flex align-items-start"><i data-lucide="check" class="text-cyber-red mt-1 me-2 flex-shrink-0" style="width: 16px; height: 16px;"></i> <span>Leveraging OSINT to stay ahead of emerging campaigns.</span></li>
+                        </ul>
                     </div>
-                    <ul class="space-y-3 text-slate-300 text-sm">
-                        <li class="flex items-start"><i data-lucide="check" class="h-4 w-4 mr-2.5 mt-0.5 text-red-400 shrink-0"></i> <span>Tearing apart malware (Reverse Engineering) to see how it ticks.</span></li>
-                        <li class="flex items-start"><i data-lucide="check" class="h-4 w-4 mr-2.5 mt-0.5 text-red-400 shrink-0"></i> <span>Mapping adversary behaviors to the MITRE ATT&CK Framework.</span></li>
-                        <li class="flex items-start"><i data-lucide="check" class="h-4 w-4 mr-2.5 mt-0.5 text-red-400 shrink-0"></i> <span>Crafting precise YARA rules to catch the bad guys.</span></li>
-                        <li class="flex items-start"><i data-lucide="check" class="h-4 w-4 mr-2.5 mt-0.5 text-red-400 shrink-0"></i> <span>Leveraging OSINT to stay ahead of emerging campaigns.</span></li>
-                    </ul>
                 </div>
             </div>
             
-            <div class="mt-10 flex flex-wrap gap-3 items-center">
-                <span class="text-sm text-slate-500 mr-2 font-medium">Verified Badges:</span>
-                <span class="px-3 py-1 bg-[#161b22] border border-cyber-border rounded-md text-xs font-mono text-slate-300 flex items-center gap-1.5 hover:border-slate-500 cursor-default transition-colors"><i data-lucide="award" class="h-3 w-3 text-yellow-500"></i> CompTIA CySA+</span>
-                <span class="px-3 py-1 bg-[#161b22] border border-cyber-border rounded-md text-xs font-mono text-slate-300 flex items-center gap-1.5 hover:border-slate-500 cursor-default transition-colors"><i data-lucide="award" class="h-3 w-3 text-yellow-500"></i> Splunk Core Power User</span>
-                <span class="px-3 py-1 bg-[#161b22] border border-cyber-border rounded-md text-xs font-mono text-slate-300 flex items-center gap-1.5 hover:border-slate-500 cursor-default transition-colors"><i data-lucide="award" class="h-3 w-3 text-yellow-500"></i> AWS Certified Security</span>
+            <div class="d-flex flex-wrap align-items-center gap-3 mt-5">
+                <span class="text-muted fw-medium" style="font-size: 0.875rem;">Verified Badges:</span>
+                <span class="badge bg-cyber-panel border border-cyber text-main fw-normal font-mono px-3 py-2 d-flex align-items-center gap-2"><i data-lucide="award" class="text-warning" style="width: 14px; height: 14px;"></i> CompTIA CySA+</span>
+                <span class="badge bg-cyber-panel border border-cyber text-main fw-normal font-mono px-3 py-2 d-flex align-items-center gap-2"><i data-lucide="award" class="text-warning" style="width: 14px; height: 14px;"></i> Splunk Core Power User</span>
+                <span class="badge bg-cyber-panel border border-cyber text-main fw-normal font-mono px-3 py-2 d-flex align-items-center gap-2"><i data-lucide="award" class="text-warning" style="width: 14px; height: 14px;"></i> AWS Certified Security</span>
             </div>
         </div>
     </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="py-24 border-t border-cyber-border">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-12">
-                <h2 class="text-3xl font-bold text-white mb-2 flex items-center gap-3">
-                    <i data-lucide="folder-git-2" class="h-8 w-8 text-cyber-green"></i> My Sandbox & Solutions
+    <section id="projects" class="container-fluid px-4 px-lg-5 section-padding border-top-cyber">
+        <div class="mx-auto" style="max-width: 1200px;">
+            <div class="mb-5">
+                <h2 class="display-6 fw-bold text-white mb-2 d-flex align-items-center gap-3">
+                    <i data-lucide="folder-git-2" class="text-cyber-green" style="width: 32px; height: 32px;"></i> My Sandbox & Solutions
                 </h2>
-                <p class="text-slate-400 font-mono text-sm">>> ls -la /var/projects/</p>
+                <p class="text-muted font-mono" style="font-size: 0.875rem;">>> ls -la /var/projects/</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                
+            <div class="row g-4">
                 <!-- Project 1 -->
-                <div class="bg-[#11151c] border border-cyber-border rounded-xl overflow-hidden flex flex-col group hover:border-cyber-green transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,255,65,0.05)]">
-                    <div class="h-1.5 bg-gradient-to-r from-green-500 to-emerald-700"></div>
-                    <div class="p-7 flex-grow">
-                        <div class="flex justify-between items-start mb-4">
-                            <h3 class="text-xl font-bold text-white group-hover:text-cyber-green transition-colors">Enterprise SIEM Lab</h3>
-                            <div class="p-2 bg-slate-900 rounded-full text-slate-400 group-hover:text-cyber-green transition-colors"><i data-lucide="activity" class="h-5 w-5"></i></div>
+                <div class="col-md-6">
+                    <div class="cyber-card">
+                        <div class="card-top-bar bg-gradient-green"></div>
+                        <div class="p-4 flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h3 class="h5 fw-bold text-white">Enterprise SIEM Lab</h3>
+                                <div class="icon-box bg-dark text-muted"><i data-lucide="activity" style="width: 20px; height: 20px;"></i></div>
+                            </div>
+                            <p class="text-muted mb-4" style="font-size: 0.875rem; line-height: 1.6;">
+                                I needed a reliable way to spot anomalous behavior in complex networks, so I built a self-hosted SIEM from scratch. Using Splunk and Sysmon, I wrote custom queries to actively hunt down Pass-the-Hash and Kerberoasting attempts.
+                            </p>
+                            <div>
+                                <span class="tech-tag">Splunk</span>
+                                <span class="tech-tag">Sysmon</span>
+                                <span class="tech-tag">Active Directory</span>
+                            </div>
                         </div>
-                        <p class="text-sm text-slate-400 mb-6 leading-relaxed">
-                            I needed a reliable way to spot anomalous behavior in complex networks, so I built a self-hosted SIEM from scratch. Using Splunk and Sysmon, I wrote custom queries to actively hunt down Pass-the-Hash and Kerberoasting attempts.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="text-xs font-mono px-2.5 py-1 bg-cyber-dark rounded border border-cyber-border text-slate-300">Splunk</span>
-                            <span class="text-xs font-mono px-2.5 py-1 bg-cyber-dark rounded border border-cyber-border text-slate-300">Sysmon</span>
-                            <span class="text-xs font-mono px-2.5 py-1 bg-cyber-dark rounded border border-cyber-border text-slate-300">Active Directory</span>
+                        <div class="bg-cyber-dark p-3 border-top border-cyber">
+                            <button type="button" class="btn btn-link text-decoration-none text-cyber-green p-0 d-flex align-items-center fw-semibold gap-2" style="font-size: 0.875rem;" data-bs-toggle="modal" data-bs-target="#modal1">
+                                Read the Case Study <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+                            </button>
                         </div>
-                    </div>
-                    <div class="px-7 py-4 bg-cyber-dark border-t border-cyber-border">
-                        <button onclick="openModal('modal-1')" class="text-sm font-semibold text-cyber-green hover:text-green-400 flex items-center gap-2 transition-colors">
-                            Read the Case Study <i data-lucide="arrow-right" class="h-4 w-4 transform group-hover:translate-x-1 transition-transform"></i>
-                        </button>
                     </div>
                 </div>
 
                 <!-- Project 2 -->
-                <div class="bg-[#11151c] border border-cyber-border rounded-xl overflow-hidden flex flex-col group hover:border-cyber-accent transition-all duration-300 hover:shadow-[0_0_20px_rgba(88,166,255,0.05)]">
-                    <div class="h-1.5 bg-gradient-to-r from-blue-500 to-cyan-600"></div>
-                    <div class="p-7 flex-grow">
-                        <div class="flex justify-between items-start mb-4">
-                            <h3 class="text-xl font-bold text-white group-hover:text-cyber-accent transition-colors">Serverless Auto-Triage</h3>
-                            <div class="p-2 bg-slate-900 rounded-full text-slate-400 group-hover:text-cyber-accent transition-colors"><i data-lucide="zap" class="h-5 w-5"></i></div>
+                <div class="col-md-6">
+                    <div class="cyber-card cyber-card-accent">
+                        <div class="card-top-bar bg-gradient-blue"></div>
+                        <div class="p-4 flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h3 class="h5 fw-bold text-white">Serverless Auto-Triage</h3>
+                                <div class="icon-box bg-dark text-muted"><i data-lucide="zap" style="width: 20px; height: 20px;"></i></div>
+                            </div>
+                            <p class="text-muted mb-4" style="font-size: 0.875rem; line-height: 1.6;">
+                                Cold starts in incident response pipelines drive me crazy. To fix this, I developed an edge-first pipeline using Cloudflare Workers. It ingests reported emails and verifies URLs in milliseconds, keeping the entire footprint under 128MB of RAM.
+                            </p>
+                            <div>
+                                <span class="tech-tag">TypeScript</span>
+                                <span class="tech-tag">Cloudflare Workers</span>
+                                <span class="tech-tag">SOAR</span>
+                            </div>
                         </div>
-                        <p class="text-sm text-slate-400 mb-6 leading-relaxed">
-                            Cold starts in incident response pipelines drive me crazy. To fix this, I developed an edge-first pipeline using Cloudflare Workers. It ingests reported emails and verifies URLs in milliseconds, keeping the entire footprint under 128MB of RAM.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="text-xs font-mono px-2.5 py-1 bg-cyber-dark rounded border border-cyber-border text-slate-300">TypeScript</span>
-                            <span class="text-xs font-mono px-2.5 py-1 bg-cyber-dark rounded border border-cyber-border text-slate-300">Cloudflare Workers</span>
-                            <span class="text-xs font-mono px-2.5 py-1 bg-cyber-dark rounded border border-cyber-border text-slate-300">SOAR</span>
+                        <div class="bg-cyber-dark p-3 border-top border-cyber">
+                            <button type="button" class="btn btn-link text-decoration-none text-cyber-accent p-0 d-flex align-items-center fw-semibold gap-2" style="font-size: 0.875rem;" data-bs-toggle="modal" data-bs-target="#modal2">
+                                View Execution Details <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+                            </button>
                         </div>
-                    </div>
-                    <div class="px-7 py-4 bg-cyber-dark border-t border-cyber-border">
-                        <button onclick="openModal('modal-2')" class="text-sm font-semibold text-cyber-accent hover:text-blue-400 flex items-center gap-2 transition-colors">
-                            View Execution Details <i data-lucide="arrow-right" class="h-4 w-4 transform group-hover:translate-x-1 transition-transform"></i>
-                        </button>
                     </div>
                 </div>
 
                 <!-- Project 3 -->
-                <div class="bg-[#11151c] border border-cyber-border rounded-xl overflow-hidden flex flex-col group hover:border-purple-500 transition-all duration-300 hover:shadow-[0_0_20px_rgba(168,85,247,0.05)]">
-                    <div class="h-1.5 bg-gradient-to-r from-purple-500 to-fuchsia-700"></div>
-                    <div class="p-7 flex-grow">
-                        <div class="flex justify-between items-start mb-4">
-                            <h3 class="text-xl font-bold text-white group-hover:text-purple-400 transition-colors">Malware Detonation Sandbox</h3>
-                            <div class="p-2 bg-slate-900 rounded-full text-slate-400 group-hover:text-purple-400 transition-colors"><i data-lucide="bug" class="h-5 w-5"></i></div>
+                <div class="col-md-6">
+                    <div class="cyber-card cyber-card-purple">
+                        <div class="card-top-bar bg-gradient-purple"></div>
+                        <div class="p-4 flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h3 class="h5 fw-bold text-white">Malware Detonation Sandbox</h3>
+                                <div class="icon-box bg-dark text-muted"><i data-lucide="bug" style="width: 20px; height: 20px;"></i></div>
+                            </div>
+                            <p class="text-muted mb-4" style="font-size: 0.875rem; line-height: 1.6;">
+                                To truly understand how modern malware behaves, I engineered an isolated virtualization cluster. Using Cuckoo Sandbox, I safely detonate polymorphic samples and use Volatility to pull apart memory dumps and map out C2 beaconing.
+                            </p>
+                            <div>
+                                <span class="tech-tag">Cuckoo Sandbox</span>
+                                <span class="tech-tag">Volatility</span>
+                                <span class="tech-tag">Malware Analysis</span>
+                            </div>
                         </div>
-                        <p class="text-sm text-slate-400 mb-6 leading-relaxed">
-                            To truly understand how modern malware behaves, I engineered an isolated virtualization cluster. Using Cuckoo Sandbox, I safely detonate polymorphic samples and use Volatility to pull apart memory dumps and map out C2 beaconing.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="text-xs font-mono px-2.5 py-1 bg-cyber-dark rounded border border-cyber-border text-slate-300">Cuckoo Sandbox</span>
-                            <span class="text-xs font-mono px-2.5 py-1 bg-cyber-dark rounded border border-cyber-border text-slate-300">Volatility</span>
-                            <span class="text-xs font-mono px-2.5 py-1 bg-cyber-dark rounded border border-cyber-border text-slate-300">Malware Analysis</span>
+                        <div class="bg-cyber-dark p-3 border-top border-cyber">
+                            <button type="button" class="btn btn-link text-decoration-none text-cyber-purple p-0 d-flex align-items-center fw-semibold gap-2" style="font-size: 0.875rem;" data-bs-toggle="modal" data-bs-target="#modal3">
+                                Read the Malware Report <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+                            </button>
                         </div>
-                    </div>
-                    <div class="px-7 py-4 bg-cyber-dark border-t border-cyber-border">
-                        <button onclick="openModal('modal-3')" class="text-sm font-semibold text-purple-400 hover:text-purple-300 flex items-center gap-2 transition-colors">
-                            Read the Malware Report <i data-lucide="arrow-right" class="h-4 w-4 transform group-hover:translate-x-1 transition-transform"></i>
-                        </button>
                     </div>
                 </div>
 
                 <!-- Project 4 -->
-                <div class="bg-[#11151c] border border-cyber-border rounded-xl overflow-hidden flex flex-col group hover:border-red-500 transition-all duration-300 hover:shadow-[0_0_20px_rgba(239,68,68,0.05)]">
-                    <div class="h-1.5 bg-gradient-to-r from-red-500 to-orange-600"></div>
-                    <div class="p-7 flex-grow">
-                        <div class="flex justify-between items-start mb-4">
-                            <h3 class="text-xl font-bold text-white group-hover:text-red-400 transition-colors">Zero-Trust Network Redesign</h3>
-                            <div class="p-2 bg-slate-900 rounded-full text-slate-400 group-hover:text-red-400 transition-colors"><i data-lucide="lock" class="h-5 w-5"></i></div>
+                <div class="col-md-6">
+                    <div class="cyber-card cyber-card-red">
+                        <div class="card-top-bar bg-gradient-red"></div>
+                        <div class="p-4 flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h3 class="h5 fw-bold text-white">Zero-Trust Network Redesign</h3>
+                                <div class="icon-box bg-dark text-muted"><i data-lucide="lock" style="width: 20px; height: 20px;"></i></div>
+                            </div>
+                            <p class="text-muted mb-4" style="font-size: 0.875rem; line-height: 1.6;">
+                                Traditional VPNs leave too much room for lateral movement. I led the transition of a legacy perimeter to a strict Zero-Trust model, implementing identity-based, per-request authentication using strict RBAC policies.
+                            </p>
+                            <div>
+                                <span class="tech-tag">ZTNA</span>
+                                <span class="tech-tag">IAM</span>
+                                <span class="tech-tag">Cloudflare Access</span>
+                            </div>
                         </div>
-                        <p class="text-sm text-slate-400 mb-6 leading-relaxed">
-                            Traditional VPNs leave too much room for lateral movement. I led the transition of a legacy perimeter to a strict Zero-Trust model, implementing identity-based, per-request authentication using strict RBAC policies.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="text-xs font-mono px-2.5 py-1 bg-cyber-dark rounded border border-cyber-border text-slate-300">ZTNA</span>
-                            <span class="text-xs font-mono px-2.5 py-1 bg-cyber-dark rounded border border-cyber-border text-slate-300">IAM</span>
-                            <span class="text-xs font-mono px-2.5 py-1 bg-cyber-dark rounded border border-cyber-border text-slate-300">Cloudflare Access</span>
+                        <div class="bg-cyber-dark p-3 border-top border-cyber">
+                            <button type="button" class="btn btn-link text-decoration-none text-cyber-red p-0 d-flex align-items-center fw-semibold gap-2" style="font-size: 0.875rem;" data-bs-toggle="modal" data-bs-target="#modal4">
+                                Review Architecture <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+                            </button>
                         </div>
-                    </div>
-                    <div class="px-7 py-4 bg-cyber-dark border-t border-cyber-border">
-                        <button onclick="openModal('modal-4')" class="text-sm font-semibold text-red-400 hover:text-red-300 flex items-center gap-2 transition-colors">
-                            Review Architecture <i data-lucide="arrow-right" class="h-4 w-4 transform group-hover:translate-x-1 transition-transform"></i>
-                        </button>
                     </div>
                 </div>
 
@@ -330,231 +512,174 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-24 border-t border-cyber-border bg-[#0a0d12]">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div class="inline-block p-4 rounded-full bg-cyber-green/10 mb-6 border border-cyber-green/20">
-                <i data-lucide="radio-tower" class="h-10 w-10 text-cyber-green animate-pulse"></i>
+    <section id="contact" class="container-fluid px-4 px-lg-5 section-padding border-top-cyber bg-cyber-dark">
+        <div class="mx-auto text-center" style="max-width: 800px;">
+            <div class="d-inline-flex justify-content-center align-items-center rounded-circle mb-4" style="width: 80px; height: 80px; background: rgba(0,255,65,0.1); border: 1px solid rgba(0,255,65,0.2);">
+                <i data-lucide="radio-tower" class="text-cyber-green animate-blink" style="width: 40px; height: 40px;"></i>
             </div>
-            <h2 class="text-3xl font-bold text-white mb-4">Let's Secure Your Next Project</h2>
-            <p class="text-slate-400 mb-10 text-lg">Whether you need an architectural review, want to collaborate on threat hunting, or just want to talk security, I'm an encrypted message away.</p>
+            <h2 class="display-6 fw-bold text-white mb-3">Let's Secure Your Next Project</h2>
+            <p class="text-muted mb-5 fs-5">Whether you need an architectural review, want to collaborate on threat hunting, or just want to talk security, I'm an encrypted message away.</p>
             
-            <div class="bg-cyber-panel border border-cyber-border p-8 rounded-xl text-left max-w-lg mx-auto shadow-2xl relative overflow-hidden">
+            <div class="bg-cyber-panel border border-cyber p-4 p-md-5 rounded-4 text-start position-relative overflow-hidden shadow-lg mx-auto" style="max-width: 600px;">
                 <!-- Decorative element -->
-                <div class="absolute top-0 right-0 w-32 h-32 bg-cyber-green/5 rounded-bl-full -z-0"></div>
+                <div class="position-absolute top-0 end-0 rounded-bottom-start" style="width: 120px; height: 120px; background: rgba(0,255,65,0.03); z-index: 0;"></div>
 
-                <div class="mb-6 relative z-10">
-                    <label class="block text-xs font-mono text-slate-400 mb-2 uppercase tracking-wider">GPG Public Key Fingerprint</label>
-                    <div class="bg-cyber-dark p-3.5 rounded border border-cyber-border font-mono text-xs text-cyber-green flex justify-between items-center break-all shadow-inner group">
+                <div class="position-relative z-1 mb-4">
+                    <label class="form-label text-muted font-mono text-uppercase" style="font-size: 0.75rem; letter-spacing: 0.05em;">GPG Public Key Fingerprint</label>
+                    <div class="bg-cyber-dark p-3 rounded border border-cyber font-mono text-cyber-green d-flex justify-content-between align-items-center shadow-sm" style="font-size: 0.75rem; word-break: break-all;">
                         <span class="tracking-widest">4A9B 2C81 F53E 90D7 11A2  B4C6 D8E9 F0A1 B2C3 D4E5</span>
-                        <i data-lucide="copy" class="h-4 w-4 text-slate-500 hover:text-white cursor-pointer ml-3 flex-shrink-0 transition-colors" onclick="copyToClipboard(this)" title="Copy Fingerprint"></i>
+                        <i data-lucide="copy" class="text-muted ms-3 cursor-pointer" style="width: 16px; height: 16px; cursor: pointer; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'" onclick="copyToClipboard(this)" title="Copy Fingerprint"></i>
                     </div>
                 </div>
-                <div class="flex flex-col gap-4 relative z-10">
-                    <a href="mailto:hello@drkingbd.cc" class="w-full flex items-center justify-center gap-2 px-4 py-3.5 bg-white text-black font-semibold rounded-lg hover:bg-slate-200 transition-colors shadow-md">
-                        <i data-lucide="mail" class="h-5 w-5"></i> hello@drkingbd.cc
+                
+                <div class="d-flex flex-column gap-3 position-relative z-1">
+                    <a href="mailto:hello@drkingbd.cc" class="btn btn-light w-100 py-3 fw-bold d-flex align-items-center justify-content-center gap-2">
+                        <i data-lucide="mail" style="width: 20px; height: 20px;"></i> hello@drkingbd.cc
                     </a>
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <a href="https://t.me/drkingbd" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 px-4 py-3 bg-cyber-dark border border-cyber-border text-white rounded-lg hover:border-[#0088cc] hover:bg-[#161b22] transition-colors group">
-                            <svg class="h-5 w-5 text-slate-400 group-hover:text-[#0088cc] transition-colors" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.223-.535.223l.188-2.623 4.823-4.35c.212-.19-.045-.296-.33-.106l-5.96 3.75-2.54-.794c-.553-.176-.566-.554.116-.82l9.923-3.82c.458-.168.86.104.715.762z"/></svg> Telegram
-                        </a>
-                        <a href="#" class="flex items-center justify-center gap-2 px-4 py-3 bg-cyber-dark border border-cyber-border text-white rounded-lg hover:border-slate-500 hover:bg-[#161b22] transition-colors group">
-                            <i data-lucide="github" class="h-5 w-5 text-slate-400 group-hover:text-white transition-colors"></i> GitHub
-                        </a>
-                        <a href="#" class="flex items-center justify-center gap-2 px-4 py-3 bg-cyber-dark border border-cyber-border text-white rounded-lg hover:border-blue-500 hover:bg-[#161b22] transition-colors group">
-                            <i data-lucide="linkedin" class="h-5 w-5 text-slate-400 group-hover:text-blue-500 transition-colors"></i> LinkedIn
-                        </a>
+                    <div class="row g-3">
+                        <div class="col-sm-4">
+                            <a href="https://t.me/drkingbd" target="_blank" rel="noopener noreferrer" class="btn btn-cyber-outline w-100 py-2 d-flex align-items-center justify-content-center gap-2 text-decoration-none" onmouseover="this.querySelector('svg').style.color='#0088cc'" onmouseout="this.querySelector('svg').style.color='#cbd5e1'">
+                                <svg style="width: 18px; height: 18px; color: #cbd5e1; transition: color 0.2s;" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.223-.535.223l.188-2.623 4.823-4.35c.212-.19-.045-.296-.33-.106l-5.96 3.75-2.54-.794c-.553-.176-.566-.554.116-.82l9.923-3.82c.458-.168.86.104.715.762z"/></svg>
+                                Telegram
+                            </a>
+                        </div>
+                        <div class="col-sm-4">
+                            <a href="#" class="btn btn-cyber-outline w-100 py-2 d-flex align-items-center justify-content-center gap-2 text-decoration-none" onmouseover="this.querySelector('i').style.color='#fff'" onmouseout="this.querySelector('i').style.color='#cbd5e1'">
+                                <i data-lucide="github" style="width: 18px; height: 18px; color: #cbd5e1; transition: color 0.2s;"></i> GitHub
+                            </a>
+                        </div>
+                        <div class="col-sm-4">
+                            <a href="#" class="btn btn-cyber-outline w-100 py-2 d-flex align-items-center justify-content-center gap-2 text-decoration-none" onmouseover="this.querySelector('i').style.color='#3b82f6'" onmouseout="this.querySelector('i').style.color='#cbd5e1'">
+                                <i data-lucide="linkedin" style="width: 18px; height: 18px; color: #cbd5e1; transition: color 0.2s;"></i> LinkedIn
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="py-8 border-t border-cyber-border bg-black text-center">
-        <p class="text-slate-500 font-mono text-xs">
+    <footer class="py-4 border-top border-cyber text-center" style="background-color: #000;">
+        <p class="text-muted font-mono mb-0" style="font-size: 0.75rem;">
             © 2026 DrkingBD.cc. Deployed securely at the edge.
         </p>
     </footer>
 
-    <!-- Modals (Hidden by default) -->
     
     <!-- Modal 1: SIEM -->
-    <div id="modal-1" class="fixed inset-0 z-[100] hidden items-center justify-center flex opacity-0 transition-opacity duration-300">
-        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeModal('modal-1')"></div>
-        <div class="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-cyber-panel border border-cyber-border rounded-xl shadow-2xl p-6 md:p-8 transform scale-95 transition-transform duration-300" id="modal-content-1">
-            <button onclick="closeModal('modal-1')" class="absolute top-5 right-5 p-1 bg-cyber-dark border border-cyber-border rounded hover:text-white text-slate-400 transition-colors">
-                <i data-lucide="x" class="h-5 w-5"></i>
-            </button>
-            <h3 class="text-2xl font-bold text-white mb-2">Distributed SIEM & Threat Hunting Lab</h3>
-            <div class="flex flex-wrap gap-2 mb-6 border-b border-cyber-border pb-5 mt-2">
-                <span class="px-2.5 py-1 bg-green-500/10 text-green-400 border border-green-500/20 rounded text-xs font-mono font-medium">Status: Active Deployment</span>
-                <span class="px-2.5 py-1 bg-slate-800 border border-slate-700 rounded text-xs font-mono text-slate-300">Tags: SIEM, MITRE, Splunk, Threat Hunting</span>
-            </div>
-            
-            <div class="space-y-6 text-slate-300 text-sm leading-relaxed">
-                <div>
-                    <h4 class="text-cyber-green font-mono text-base mb-2 font-medium">## The Problem & The Build</h4>
-                    <p>Relying on out-of-the-box alerts wasn't cutting it. I wanted to see exactly how network traffic and endpoint behavior correlated during an attack. I spun up a self-hosted SOC environment, ingesting raw firewall logs (pfSense), IDS alerts (Suricata), and granular Windows event logs using Splunk Universal Forwarders.</p>
-                </div>
-                
-                <div class="bg-cyber-dark p-4 rounded-lg border border-cyber-border font-mono text-xs shadow-inner">
-                    <p class="text-slate-500 mb-2"># How I hunt for Kerberoasting anomalies (EventCode 4769)</p>
-                    <p class="text-white">index=windows sourcetype=WinEventLog:Security EventCode=4769 Ticket_Options=0x40810000 Ticket_Encryption_Type=0x17</p>
-                    <p class="text-white">| stats count min(_time) as firstTime max(_time) as lastTime by src_ip, Target_UserName, Service_Name</p>
-                    <p class="text-white">| where count > 5</p>
-                </div>
+    <div class="modal fade" id="modal1" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content p-2 p-md-4">
+                <button type="button" class="btn-close-custom" data-bs-dismiss="modal" aria-label="Close"><i data-lucide="x"></i></button>
+                <div class="modal-body">
+                    <h3 class="fs-4 fw-bold text-white mb-2">Distributed SIEM & Threat Hunting Lab</h3>
+                    <div class="d-flex flex-wrap gap-2 mb-4 border-bottom border-cyber pb-3">
+                        <span class="badge" style="background: rgba(16, 185, 129, 0.1); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.2); font-family: 'Fira Code', monospace; font-weight: 500;">Status: Active Deployment</span>
+                        <span class="badge bg-dark border border-secondary text-main font-mono fw-normal">Tags: SIEM, MITRE, Splunk</span>
+                    </div>
+                    
+                    <div class="text-main" style="font-size: 0.875rem; line-height: 1.6;">
+                        <h4 class="h6 text-cyber-green font-mono mb-2">## The Problem & The Build</h4>
+                        <p class="mb-4">Relying on out-of-the-box alerts wasn't cutting it. I wanted to see exactly how network traffic and endpoint behavior correlated during an attack. I spun up a self-hosted SOC environment, ingesting raw firewall logs (pfSense), IDS alerts (Suricata), and granular Windows event logs using Splunk Universal Forwarders.</p>
+                        
+                        <div class="bg-cyber-dark p-3 rounded border border-cyber font-mono mb-4 shadow-sm" style="font-size: 0.75rem;">
+                            <p class="text-muted mb-2"># How I hunt for Kerberoasting anomalies (EventCode 4769)</p>
+                            <p class="text-white mb-0">index=windows sourcetype=WinEventLog:Security EventCode=4769 Ticket_Options=0x40810000 Ticket_Encryption_Type=0x17</p>
+                            <p class="text-white mb-0">| stats count min(_time) as firstTime max(_time) as lastTime by src_ip, Target_UserName, Service_Name</p>
+                            <p class="text-white mb-0">| where count > 5</p>
+                        </div>
 
-                <div>
-                    <h4 class="text-cyber-green font-mono text-base mb-2 font-medium">## Results in the Wild</h4>
-                    <ul class="list-disc pl-5 space-y-2">
-                        <li>Configured <strong>Sysmon</strong> to watch the things that matter: unexpected process creation, strange file hashing, and registry tampering.</li>
-                        <li>Ran a simulated brute-force and Pass-the-Hash attack. The SIEM caught it instantly, triggering automated Slack alerts via Splunk Webhooks before lateral movement could occur.</li>
-                        <li>Tied every custom alert back to the <strong>MITRE ATT&CK Framework</strong> so the team always speaks a unified defensive language.</li>
-                    </ul>
+                        <h4 class="h6 text-cyber-green font-mono mb-2">## Results in the Wild</h4>
+                        <ul class="mb-0 ps-3">
+                            <li class="mb-2">Configured <strong>Sysmon</strong> to watch the things that matter: unexpected process creation, strange file hashing, and registry tampering.</li>
+                            <li class="mb-2">Ran a simulated brute-force and Pass-the-Hash attack. The SIEM caught it instantly, triggering automated Slack alerts via Splunk Webhooks before lateral movement could occur.</li>
+                            <li>Tied every custom alert back to the <strong>MITRE ATT&CK Framework</strong> so the team always speaks a unified defensive language.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Modal 2: Serverless Pipeline -->
-    <div id="modal-2" class="fixed inset-0 z-[100] hidden items-center justify-center flex opacity-0 transition-opacity duration-300">
-        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeModal('modal-2')"></div>
-        <div class="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-cyber-panel border border-cyber-border rounded-xl shadow-2xl p-6 md:p-8 transform scale-95 transition-transform duration-300" id="modal-content-2">
-            <button onclick="closeModal('modal-2')" class="absolute top-5 right-5 p-1 bg-cyber-dark border border-cyber-border rounded hover:text-white text-slate-400 transition-colors">
-                <i data-lucide="x" class="h-5 w-5"></i>
-            </button>
-            <h3 class="text-2xl font-bold text-white mb-2">Serverless Phishing Auto-Triage Pipeline</h3>
-            <div class="flex flex-wrap gap-2 mb-6 border-b border-cyber-border pb-5 mt-2">
-                <span class="px-2.5 py-1 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded text-xs font-mono font-medium">Platform: Cloudflare Edge</span>
-                <span class="px-2.5 py-1 bg-slate-800 border border-slate-700 rounded text-xs font-mono text-slate-300">Tags: SOAR, V8 Isolates, Automation</span>
-            </div>
-            
-            <div class="space-y-6 text-slate-300 text-sm leading-relaxed">
-                <div>
-                    <h4 class="text-cyber-accent font-mono text-base mb-2 font-medium">## Why I Built It</h4>
-                    <p>Traditional incident response pipelines often rely on bloated Node.js backends that suffer from cold starts—every second counts when a user reports a phishing email. I moved this entire triage workflow to the edge using Cloudflare Workers and strict TypeScript, leveraging V8 isolates for near-instant execution.</p>
-                </div>
-                
-                <div class="bg-cyber-dark p-4 rounded-lg border border-cyber-border font-mono text-xs overflow-x-auto shadow-inner">
-                    <p class="text-slate-500 mb-2">// Handling payloads at the edge without blocking the main thread</p>
-                    <p class="text-purple-400">export default <span class="text-white">{</span></p>
-                    <p class="text-blue-400 ml-4">async <span class="text-yellow-200">fetch</span><span class="text-white">(request, env, ctx) {</span></p>
-                    <p class="text-white ml-8">const data = await request.json();</p>
-                    <p class="text-white ml-8">const urlToScan = extractIOC(data.body);</p>
-                    <p class="text-slate-500 ml-8 mt-2">// Background task: non-blocking Threat Intel check</p>
-                    <p class="text-white ml-8">ctx.<span class="text-yellow-200">waitUntil</span><span class="text-white">(scanWithVirusTotal(urlToScan, env.VT_API_KEY));</span></p>
-                    <p class="text-purple-400 ml-8 mt-2">return new <span class="text-yellow-200">Response</span><span class="text-white">("Ingested via Edge", { status: 202 });</span></p>
-                    <p class="text-white ml-4">}</p>
-                    <p class="text-white">}</p>
-                </div>
+    <div class="modal fade" id="modal2" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content p-2 p-md-4">
+                <button type="button" class="btn-close-custom" data-bs-dismiss="modal" aria-label="Close"><i data-lucide="x"></i></button>
+                <div class="modal-body">
+                    <h3 class="fs-4 fw-bold text-white mb-2">Serverless Phishing Auto-Triage Pipeline</h3>
+                    <div class="d-flex flex-wrap gap-2 mb-4 border-bottom border-cyber pb-3">
+                        <span class="badge" style="background: rgba(59, 130, 246, 0.1); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.2); font-family: 'Fira Code', monospace; font-weight: 500;">Platform: Cloudflare Edge</span>
+                        <span class="badge bg-dark border border-secondary text-main font-mono fw-normal">Tags: SOAR, V8 Isolates, Automation</span>
+                    </div>
+                    
+                    <div class="text-main" style="font-size: 0.875rem; line-height: 1.6;">
+                        <h4 class="h6 text-cyber-accent font-mono mb-2">## Why I Built It</h4>
+                        <p class="mb-4">Traditional incident response pipelines often rely on bloated Node.js backends that suffer from cold starts—every second counts when a user reports a phishing email. I moved this entire triage workflow to the edge using Cloudflare Workers and strict TypeScript, leveraging V8 isolates for near-instant execution.</p>
+                        
+                        <div class="bg-cyber-dark p-3 rounded border border-cyber font-mono mb-4 shadow-sm overflow-x-auto" style="font-size: 0.75rem;">
+                            <p class="text-muted mb-2">// Handling payloads at the edge without blocking the main thread</p>
+                            <p class="text-cyber-purple mb-0">export default <span class="text-white">{</span></p>
+                            <p class="text-cyber-accent ms-3 mb-0">async <span class="text-warning">fetch</span><span class="text-white">(request, env, ctx) {</span></p>
+                            <p class="text-white ms-4 ps-2 mb-0">const data = await request.json();</p>
+                            <p class="text-white ms-4 ps-2 mb-0">const urlToScan = extractIOC(data.body);</p>
+                            <p class="text-muted ms-4 ps-2 mt-2 mb-0">// Background task: non-blocking Threat Intel check</p>
+                            <p class="text-white ms-4 ps-2 mb-0">ctx.<span class="text-warning">waitUntil</span><span class="text-white">(scanWithVirusTotal(urlToScan, env.VT_API_KEY));</span></p>
+                            <p class="text-cyber-purple ms-4 ps-2 mt-2 mb-0">return new <span class="text-warning">Response</span><span class="text-white">("Ingested via Edge", { status: 202 });</span></p>
+                            <p class="text-white ms-3 mb-0">}</p>
+                            <p class="text-white mb-0">}</p>
+                        </div>
 
-                <div>
-                    <h4 class="text-cyber-accent font-mono text-base mb-2 font-medium">## Architectural Wins</h4>
-                    <ul class="list-disc pl-5 space-y-2">
-                        <li><strong>Zero Cold Starts:</strong> The pipeline triggers the moment a user hits "Report," slashing time-to-quarantine (TTQ) by over 85%.</li>
-                        <li><strong>Resource Efficiency:</strong> Designed natively around the platform's strict 128MB isolate memory limit by streaming payload data rather than buffering it all into RAM.</li>
-                        <li><strong>Secure Tracing:</strong> Generated completely non-predictable trace IDs using <code>crypto.randomUUID()</code> to track the lifecycle of the threat across our distributed systems.</li>
-                    </ul>
+                        <h4 class="h6 text-cyber-accent font-mono mb-2">## Architectural Wins</h4>
+                        <ul class="mb-0 ps-3">
+                            <li class="mb-2"><strong>Zero Cold Starts:</strong> The pipeline triggers the moment a user hits "Report," slashing time-to-quarantine (TTQ) by over 85%.</li>
+                            <li class="mb-2"><strong>Resource Efficiency:</strong> Designed natively around the platform's strict 128MB isolate memory limit by streaming payload data rather than buffering it all into RAM.</li>
+                            <li><strong>Secure Tracing:</strong> Generated completely non-predictable trace IDs using <code>crypto.randomUUID()</code> to track the lifecycle of the threat across our distributed systems.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Modal 3: Sandbox -->
-    <div id="modal-3" class="fixed inset-0 z-[100] hidden items-center justify-center flex opacity-0 transition-opacity duration-300">
-        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeModal('modal-3')"></div>
-        <div class="relative w-full max-w-2xl bg-cyber-panel border border-cyber-border rounded-xl p-6 md:p-8 shadow-2xl transform scale-95 transition-transform duration-300" id="modal-content-3">
-            <button onclick="closeModal('modal-3')" class="absolute top-5 right-5 p-1 bg-cyber-dark border border-cyber-border rounded hover:text-white text-slate-400 transition-colors"><i data-lucide="x" class="h-5 w-5"></i></button>
-            <h3 class="text-2xl font-bold text-white mb-4">Malware Sandbox Analysis</h3>
-            <p class="text-slate-300 text-sm leading-relaxed">
-                Sometimes you have to let the bomb go off to see how it was built. I structured a highly secure, isolated forensic environment specifically to detonate aggressive malware strains safely.<br><br>
-                Using Cuckoo Sandbox, I recorded exactly how variants like WannaCry attempt to modify system registries and replicate. By taking memory snapshots and running them through Volatility, I was able to expose the injected thread IDs hiding inside legitimate processes like <code>svchost.exe</code>, and map their precise Command and Control (C2) network beaconing.
-            </p>
+    <div class="modal fade" id="modal3" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-2 p-md-4">
+                <button type="button" class="btn-close-custom" data-bs-dismiss="modal" aria-label="Close"><i data-lucide="x"></i></button>
+                <div class="modal-body">
+                    <h3 class="fs-4 fw-bold text-white mb-3">Malware Sandbox Analysis</h3>
+                    <p class="text-main mb-0" style="font-size: 0.875rem; line-height: 1.6;">
+                        Sometimes you have to let the bomb go off to see how it was built. I structured a highly secure, isolated forensic environment specifically to detonate aggressive malware strains safely.<br><br>
+                        Using Cuckoo Sandbox, I recorded exactly how variants like WannaCry attempt to modify system registries and replicate. By taking memory snapshots and running them through Volatility, I was able to expose the injected thread IDs hiding inside legitimate processes like <code>svchost.exe</code>, and map their precise Command and Control (C2) network beaconing.
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
     
     <!-- Modal 4: ZTNA -->
-    <div id="modal-4" class="fixed inset-0 z-[100] hidden items-center justify-center flex opacity-0 transition-opacity duration-300">
-        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeModal('modal-4')"></div>
-        <div class="relative w-full max-w-2xl bg-cyber-panel border border-cyber-border rounded-xl p-6 md:p-8 shadow-2xl transform scale-95 transition-transform duration-300" id="modal-content-4">
-            <button onclick="closeModal('modal-4')" class="absolute top-5 right-5 p-1 bg-cyber-dark border border-cyber-border rounded hover:text-white text-slate-400 transition-colors"><i data-lucide="x" class="h-5 w-5"></i></button>
-            <h3 class="text-2xl font-bold text-white mb-4">Zero-Trust Network Redesign</h3>
-            <p class="text-slate-300 text-sm leading-relaxed">
-                "Trust nothing, verify everything." I lead the initiative to deprecate an aging, vulnerable IPSec VPN infrastructure in favor of a modern Zero-Trust approach.<br><br>
-                Instead of giving remote workers blanket access to the subnet, I implemented application-layer identity checks. Using Cloudflare Access integrated with Okta MFA, internal apps are completely invisible to the open internet. Access is granted per-request based on strict Role-Based Access Control (RBAC), effectively reducing the external attack surface and completely neutralizing lateral movement risks.
-            </p>
+    <div class="modal fade" id="modal4" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-2 p-md-4">
+                <button type="button" class="btn-close-custom" data-bs-dismiss="modal" aria-label="Close"><i data-lucide="x"></i></button>
+                <div class="modal-body">
+                    <h3 class="fs-4 fw-bold text-white mb-3">Zero-Trust Network Redesign</h3>
+                    <p class="text-main mb-0" style="font-size: 0.875rem; line-height: 1.6;">
+                        "Trust nothing, verify everything." I lead the initiative to deprecate an aging, vulnerable IPSec VPN infrastructure in favor of a modern Zero-Trust approach.<br><br>
+                        Instead of giving remote workers blanket access to the subnet, I implemented application-layer identity checks. Using Cloudflare Access integrated with Okta MFA, internal apps are completely invisible to the open internet. Access is granted per-request based on strict Role-Based Access Control (RBAC), effectively reducing the external attack surface and completely neutralizing lateral movement risks.
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Scripts -->
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmxc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
     <script>
-        // Initialize Icons
+        // Initialize Lucide Icons
         lucide.createIcons();
-
-        // Mobile Menu Toggle
-        const btn = document.getElementById('mobile-menu-btn');
-        const menu = document.getElementById('mobile-menu');
-
-        btn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
-        });
-
-        // Close mobile menu on link click
-        const mobileLinks = menu.querySelectorAll('a');
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                menu.classList.add('hidden');
-            });
-        });
-
-        // Enhanced Modal Logic with transitions
-        function openModal(modalId) {
-            const modal = document.getElementById(modalId);
-            const content = document.getElementById(`modal-content-${modalId.split('-')[1]}`);
-            
-            modal.classList.remove('hidden');
-            
-            // Small timeout to allow display:block to apply before animating opacity
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                if(content) {
-                    content.classList.remove('scale-95');
-                    content.classList.add('scale-100');
-                }
-            }, 10);
-            
-            document.body.classList.add('modal-active');
-        }
-
-        function closeModal(modalId) {
-            const modal = document.getElementById(modalId);
-            const content = document.getElementById(`modal-content-${modalId.split('-')[1]}`);
-            
-            modal.classList.add('opacity-0');
-            if(content) {
-                content.classList.remove('scale-100');
-                content.classList.add('scale-95');
-            }
-            
-            // Wait for transition to finish before hiding
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                document.body.classList.remove('modal-active');
-            }, 300);
-        }
-
-        // Close modal on escape key
-        document.addEventListener('keydown', function(event) {
-            if (event.key === "Escape") {
-                const modals = document.querySelectorAll('[id^="modal-"]');
-                modals.forEach(modal => {
-                    if (!modal.classList.contains('hidden')) {
-                        closeModal(modal.id);
-                    }
-                });
-            }
-        });
 
         // Copy to clipboard functionality (Safe fallback)
         function copyToClipboard(element) {
@@ -590,15 +715,25 @@
         function showCopyFeedback(element) {
             const originalIcon = element.getAttribute('data-lucide');
             element.setAttribute('data-lucide', 'check');
-            element.classList.replace('text-slate-500', 'text-cyber-green');
+            element.style.color = '#00ff41'; // Force green color
             lucide.createIcons();
             
             setTimeout(() => {
                 element.setAttribute('data-lucide', originalIcon);
-                element.classList.replace('text-cyber-green', 'text-slate-500');
+                element.style.color = '#94a3b8'; // Revert to muted
                 lucide.createIcons();
             }, 2000);
         }
+
+        // Add blur effect to navbar on scroll
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.5)';
+            } else {
+                nav.style.boxShadow = 'none';
+            }
+        });
     </script>
 </body>
 </html>
