@@ -1,13 +1,416 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ctool</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity Analyst | Portfolio</title>
+    <meta name="description" content="Portfolio of a Cybersecurity Analyst specializing in Threat Hunting, Incident Response, and SIEM Engineering.">
+    <!-- Tailwind CSS for rapid styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phosphor Icons for lightweight SVG icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            base: '#0f172a',    // slate-900
+                            surface: '#1e293b', // slate-800
+                            accent: '#10b981',  // emerald-500
+                            glow: 'rgba(16, 185, 129, 0.2)',
+                            danger: '#ef4444',  // red-500
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['Fira Code', 'ui-monospace', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar and selection for terminal feel */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #10b981; }
+        ::selection { background: rgba(16, 185, 129, 0.3); color: #fff; }
+        
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .scanline {
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(16,185,129,0.1) 50%, rgba(0,0,0,0) 100%);
+            opacity: 0.1;
+            position: absolute;
+            bottom: 100%;
+            animation: scanline 8s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes scanline {
+            0% { bottom: 100%; }
+            100% { bottom: -100px; }
+        }
+
+        .terminal-text::after {
+            content: '_';
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-cyber-base text-slate-300 font-sans antialiased overflow-x-hidden relative">
+    
+    <!-- Decorative Scanline overlay -->
+    <div class="fixed inset-0 z-50 pointer-events-none overflow-hidden mix-blend-screen">
+        <div class="scanline"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-40 glass-panel border-b-0 border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0 font-mono text-cyber-accent font-bold text-xl tracking-tighter">
+                    <i class="ph ph-shield-check mr-2"></i>[SEC_OPS_USER]
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8 font-mono text-sm">
+                        <a href="#about" class="hover:text-cyber-accent transition-colors duration-200">./about</a>
+                        <a href="#skills" class="hover:text-cyber-accent transition-colors duration-200">./skills</a>
+                        <a href="#projects" class="hover:text-cyber-accent transition-colors duration-200">./projects</a>
+                        <a href="#certs" class="hover:text-cyber-accent transition-colors duration-200">./certifications</a>
+                        <a href="#contact" class="px-3 py-1 border border-cyber-accent text-cyber-accent rounded hover:bg-cyber-accent hover:text-cyber-base transition-all duration-200">init_contact()</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 min-h-[90vh] justify-center">
+        <div class="flex-1 space-y-6 z-10">
+            <div class="inline-flex items-center px-3 py-1 rounded-full border border-cyber-accent/30 bg-cyber-accent/10 text-cyber-accent text-xs font-mono mb-4">
+                <span class="w-2 h-2 rounded-full bg-cyber-accent animate-pulse mr-2"></span> System Status: SECURE
+            </div>
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight">
+                Defending infrastructure through <span class="text-cyber-accent">proactive analysis</span>.
+            </h1>
+            <p class="text-lg text-slate-400 max-w-2xl leading-relaxed">
+                Cybersecurity Analyst specialized in Threat Hunting, SIEM Engineering, and Incident Response. Leveraging deep visibility and automation to neutralize advanced persistent threats (APTs) across cloud and edge environments.
+            </p>
+            <div class="flex flex-wrap gap-4 pt-4">
+                <a href="#projects" class="bg-cyber-accent text-cyber-base font-bold px-6 py-3 rounded flex items-center gap-2 hover:bg-emerald-400 transition-colors shadow-[0_0_15px_rgba(16,185,129,0.3)]">
+                    <i class="ph ph-terminal-window text-xl"></i> View Operations
+                </a>
+                <a href="#contact" class="border border-slate-600 text-slate-300 font-medium px-6 py-3 rounded flex items-center gap-2 hover:border-slate-400 hover:text-white transition-colors">
+                    <i class="ph ph-file-code text-xl"></i> Get Resume.pgp
+                </a>
+            </div>
+        </div>
+        
+        <!-- Simulated Terminal -->
+        <div class="flex-1 w-full max-w-lg glass-panel rounded-lg overflow-hidden border border-slate-700 shadow-2xl z-10">
+            <div class="bg-slate-800 px-4 py-2 flex items-center gap-2 border-b border-slate-700">
+                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                <span class="ml-2 text-xs font-mono text-slate-400">root@soc-analyst:~</span>
+            </div>
+            <div class="p-4 font-mono text-sm h-64 overflow-y-auto bg-[#0a0f18] text-emerald-400" id="terminal-content">
+                <!-- JS will inject text here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills/Capabilities Matrix -->
+    <section id="skills" class="py-20 bg-cyber-surface/50 border-y border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-white mb-2"><i class="ph ph-cpu text-cyber-accent mr-2"></i>Capabilities Matrix</h2>
+            <p class="text-slate-400 mb-12 font-mono text-sm">// Operational readiness across the MITRE ATT&CK framework</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Skill Category 1 -->
+                <div class="glass-panel p-6 rounded-lg border-t-2 border-t-cyber-accent hover:-translate-y-1 transition-transform duration-300">
+                    <div class="h-12 w-12 rounded bg-cyber-accent/10 flex items-center justify-center text-cyber-accent text-2xl mb-4">
+                        <i class="ph ph-radar"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-4">SIEM & Analytics</h3>
+                    <ul class="space-y-2 text-slate-400 font-mono text-sm">
+                        <li class="flex items-center gap-2"><i class="ph ph-caret-right text-cyber-accent"></i> Splunk Enterprise</li>
+                        <li class="flex items-center gap-2"><i class="ph ph-caret-right text-cyber-accent"></i> Elastic Security (ELK)</li>
+                        <li class="flex items-center gap-2"><i class="ph ph-caret-right text-cyber-accent"></i> Microsoft Sentinel</li>
+                        <li class="flex items-center gap-2"><i class="ph ph-caret-right text-cyber-accent"></i> KQL / SPL Queries</li>
+                    </ul>
+                </div>
+
+                <!-- Skill Category 2 -->
+                <div class="glass-panel p-6 rounded-lg border-t-2 border-t-blue-500 hover:-translate-y-1 transition-transform duration-300">
+                    <div class="h-12 w-12 rounded bg-blue-500/10 flex items-center justify-center text-blue-500 text-2xl mb-4">
+                        <i class="ph ph-activity"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-4">Incident Response</h3>
+                    <ul class="space-y-2 text-slate-400 font-mono text-sm">
+                        <li class="flex items-center gap-2"><i class="ph ph-caret-right text-blue-500"></i> Memory Forensics (Volatility)</li>
+                        <li class="flex items-center gap-2"><i class="ph ph-caret-right text-blue-500"></i> Malware Triage</li>
+                        <li class="flex items-center gap-2"><i class="ph ph-caret-right text-blue-500"></i> CrowdStrike Falcon</li>
+                        <li class="flex items-center gap-2"><i class="ph ph-caret-right text-blue-500"></i> Playbook Automation</li>
+                    </ul>
+                </div>
+
+                <!-- Skill Category 3 -->
+                <div class="glass-panel p-6 rounded-lg border-t-2 border-t-purple-500 hover:-translate-y-1 transition-transform duration-300">
+                    <div class="h-12 w-12 rounded bg-purple-500/10 flex items-center justify-center text-purple-500 text-2xl mb-4">
+                        <i class="ph ph-graph"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-4">Network Security</h3>
+                    <ul class="space-y-2 text-slate-400 font-mono text-sm">
+                        <li class="flex items-center gap-2"><i class="ph ph-caret-right text-purple-500"></i> Packet Analysis (Wireshark)</li>
+                        <li class="flex items-center gap-2"><i class="ph ph-caret-right text-purple-500"></i> IDS/IPS (Zeek, Suricata)</li>
+                        <li class="flex items-center gap-2"><i class="ph ph-caret-right text-purple-500"></i> Edge WAF (Cloudflare)</li>
+                        <li class="flex items-center gap-2"><i class="ph ph-caret-right text-purple-500"></i> Zero Trust Architecture</li>
+                    </ul>
+                </div>
+
+                <!-- Skill Category 4 -->
+                <div class="glass-panel p-6 rounded-lg border-t-2 border-t-cyber-danger hover:-translate-y-1 transition-transform duration-300">
+                    <div class="h-12 w-12 rounded bg-red-500/10 flex items-center justify-center text-cyber-danger text-2xl mb-4">
+                        <i class="ph ph-skull"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-4">Offensive Ops</h3>
+                    <ul class="space-y-2 text-slate-400 font-mono text-sm">
+                        <li class="flex items-center gap-2"><i class="ph ph-caret-right text-cyber-danger"></i> Vulnerability Scanning</li>
+                        <li class="flex items-center gap-2"><i class="ph ph-caret-right text-cyber-danger"></i> Nmap / Masscan</li>
+                        <li class="flex items-center gap-2"><i class="ph ph-caret-right text-cyber-danger"></i> Burp Suite Pro</li>
+                        <li class="flex items-center gap-2"><i class="ph ph-caret-right text-cyber-danger"></i> Metasploit Framework</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Projects / Case Studies -->
+    <section id="projects" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-white mb-2"><i class="ph ph-folder-open text-cyber-accent mr-2"></i>Field Operations</h2>
+            <p class="text-slate-400 mb-12 font-mono text-sm">// Selected case studies and lab environments</p>
+
+            <div class="space-y-8">
+                <!-- Project 1 -->
+                <div class="glass-panel rounded-lg overflow-hidden flex flex-col md:flex-row group">
+                    <div class="md:w-1/3 bg-slate-800 p-6 flex flex-col justify-center border-r border-slate-700 relative overflow-hidden">
+                        <div class="absolute -right-10 -bottom-10 opacity-10 group-hover:scale-110 group-hover:rotate-12 transition-transform duration-700">
+                            <i class="ph ph-cloud-warning text-9xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white relative z-10">Edge WAF & DDoS Mitigation</h3>
+                        <p class="text-cyber-accent font-mono text-sm mt-2 relative z-10">Cloudflare Workers / Logpush</p>
+                    </div>
+                    <div class="md:w-2/3 p-6 md:p-8">
+                        <p class="text-slate-300 leading-relaxed mb-6">
+                            Architected an automated threat response system utilizing Cloudflare Workers. Intercepted high-velocity layer 7 HTTP floods by parsing incoming request heuristics at the edge. Analyzed anomalous traffic payloads via Cloudflare Logpush piped into an Elastic stack for real-time visualization and custom WAF rule generation.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded-full text-xs font-mono text-slate-300">WAF</span>
+                            <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded-full text-xs font-mono text-slate-300">Cloudflare</span>
+                            <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded-full text-xs font-mono text-slate-300">ELK Stack</span>
+                            <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded-full text-xs font-mono text-slate-300">TypeScript</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="glass-panel rounded-lg overflow-hidden flex flex-col md:flex-row group">
+                    <div class="md:w-1/3 bg-slate-800 p-6 flex flex-col justify-center border-r border-slate-700 relative overflow-hidden">
+                        <div class="absolute -right-10 -bottom-10 opacity-10 group-hover:scale-110 group-hover:rotate-12 transition-transform duration-700">
+                            <i class="ph ph-magnifying-glass text-9xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white relative z-10">Active Directory Threat Hunting</h3>
+                        <p class="text-cyber-accent font-mono text-sm mt-2 relative z-10">Splunk / Sysmon</p>
+                    </div>
+                    <div class="md:w-2/3 p-6 md:p-8">
+                        <p class="text-slate-300 leading-relaxed mb-6">
+                            Deployed a virtualized Windows enterprise environment. Simulated advanced lateral movement techniques (Pass-the-Hash, Kerberoasting) using Kali Linux. Configured Windows Event Forwarding (WEF) and Sysmon to aggregate telemetry into Splunk. Developed custom SPL queries mapped to MITRE ATT&CK techniques (T1558, T1059) to trigger high-fidelity alerts.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded-full text-xs font-mono text-slate-300">Splunk</span>
+                            <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded-full text-xs font-mono text-slate-300">Active Directory</span>
+                            <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded-full text-xs font-mono text-slate-300">Sysmon</span>
+                            <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded-full text-xs font-mono text-slate-300">Threat Hunting</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="glass-panel rounded-lg overflow-hidden flex flex-col md:flex-row group">
+                    <div class="md:w-1/3 bg-slate-800 p-6 flex flex-col justify-center border-r border-slate-700 relative overflow-hidden">
+                        <div class="absolute -right-10 -bottom-10 opacity-10 group-hover:scale-110 group-hover:rotate-12 transition-transform duration-700">
+                            <i class="ph ph-bug-beetle text-9xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white relative z-10">Malware Sandbox Detonation</h3>
+                        <p class="text-cyber-accent font-mono text-sm mt-2 relative z-10">REMnux / Any.Run</p>
+                    </div>
+                    <div class="md:w-2/3 p-6 md:p-8">
+                        <p class="text-slate-300 leading-relaxed mb-6">
+                            Established an isolated malware analysis sandbox using REMnux and FlareVM. Performed static analysis (PE parsing, string extraction) and dynamic detonation of evasive trojans (e.g., Emotet derivatives). Captured PCAP data to identify command-and-control (C2) domains and generated actionable Indicators of Compromise (IoCs) for firewall blacklisting.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded-full text-xs font-mono text-slate-300">Reverse Engineering</span>
+                            <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded-full text-xs font-mono text-slate-300">Wireshark</span>
+                            <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded-full text-xs font-mono text-slate-300">IoC Generation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications & Platforms -->
+    <section id="certs" class="py-20 bg-cyber-surface/50 border-y border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-white mb-2"><i class="ph ph-certificate text-cyber-accent mr-2"></i>Credentials & Platforms</h2>
+            <p class="text-slate-400 mb-12 font-mono text-sm">// Verified industry certifications and continuous training</p>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Cert 1 -->
+                <div class="glass-panel p-6 rounded-lg text-center flex flex-col items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 cursor-default">
+                    <div class="w-16 h-16 rounded-full bg-red-600 flex items-center justify-center text-white font-bold text-xl mb-4">
+                        Sec+
+                    </div>
+                    <h4 class="text-white font-semibold">CompTIA Security+</h4>
+                    <p class="text-xs text-slate-400 mt-1">SY0-601 | Validated</p>
+                </div>
+                
+                <!-- Cert 2 -->
+                <div class="glass-panel p-6 rounded-lg text-center flex flex-col items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 cursor-default">
+                    <div class="w-16 h-16 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-xl mb-4">
+                        CySA+
+                    </div>
+                    <h4 class="text-white font-semibold">CompTIA CySA+</h4>
+                    <p class="text-xs text-slate-400 mt-1">CS0-002 | Validated</p>
+                </div>
+
+                <!-- HTB -->
+                <a href="#" class="glass-panel p-6 rounded-lg text-center flex flex-col items-center justify-center hover:border-green-500 transition-all duration-300 group">
+                    <div class="w-16 h-16 text-4xl text-green-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <i class="ph ph-cube"></i>
+                    </div>
+                    <h4 class="text-white font-semibold">HackTheBox</h4>
+                    <p class="text-xs text-green-400 mt-1 font-mono">Rank: Pro Hacker</p>
+                </a>
+
+                <!-- TryHackMe -->
+                <a href="#" class="glass-panel p-6 rounded-lg text-center flex flex-col items-center justify-center hover:border-slate-300 transition-all duration-300 group">
+                    <div class="w-16 h-16 text-4xl text-slate-300 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <i class="ph ph-ghost"></i>
+                    </div>
+                    <h4 class="text-white font-semibold">TryHackMe</h4>
+                    <p class="text-xs text-slate-400 mt-1 font-mono">Top 2% Globally</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-cyber-accent/10 text-cyber-accent mb-6 text-3xl">
+                <i class="ph ph-envelope-simple"></i>
+            </div>
+            <h2 class="text-3xl font-bold text-white mb-6">Establish Secure Connection</h2>
+            <p class="text-slate-400 mb-8 leading-relaxed">
+                Currently open for Security Analyst, SOC Analyst (Tier II), and Incident Response roles. Reach out for collaboration, threat intel sharing, or professional inquiries.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="mailto:analyst@example.com" class="bg-cyber-accent text-cyber-base font-bold px-8 py-3 rounded flex items-center justify-center gap-2 hover:bg-emerald-400 transition-colors">
+                    <i class="ph ph-paper-plane-tilt"></i> Send Encrypted Mail
+                </a>
+                <a href="#" class="glass-panel text-white font-medium px-8 py-3 rounded flex items-center justify-center gap-2 hover:bg-slate-800 transition-colors">
+                    <i class="ph ph-linkedin-logo text-xl text-[#0a66c2]"></i> LinkedIn Profile
+                </a>
+                <a href="#" class="glass-panel text-white font-medium px-8 py-3 rounded flex items-center justify-center gap-2 hover:bg-slate-800 transition-colors">
+                    <i class="ph ph-github-logo text-xl"></i> GitHub / Repos
+                </a>
+            </div>
+
+            <div class="mt-12 p-4 bg-slate-800/50 rounded inline-block text-left border border-slate-700">
+                <p class="text-xs font-mono text-slate-500 mb-2">PGP Public Key Block</p>
+                <code class="text-xs font-mono text-slate-400 break-all">
+                    -----BEGIN PGP PUBLIC KEY BLOCK-----<br>
+                    mQINBGI... (Sample Key Stub) ...3zU1<br>
+                    -----END PGP PUBLIC KEY BLOCK-----
+                </code>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 py-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-slate-500 text-sm font-mono">
+                © 2026 SecOps Portfolio. Zero trust assumed.
+            </p>
+            <div class="flex gap-4 text-slate-500">
+                <i class="ph ph-shield-check text-xl hover:text-cyber-accent cursor-help" title="Edge Protected"></i>
+                <i class="ph ph-lock-key text-xl hover:text-cyber-accent cursor-help" title="TLS 1.3 Enforced"></i>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Terminal Simulation Script -->
+    <script>
+        const terminalOutput = [
+            "[OK] Loading boot parameters...",
+            "[OK] Establishing secure perimeter...",
+            "[OK] Parsing access logs...",
+            "[WARN] Anomalous login attempt detected on port 22.",
+            "[INFO] Initiating traceback protocol...",
+            "[OK] IP blocklisted at WAF edge.",
+            "[INFO] Boot sequence complete. Welcome, Analyst.",
+            "",
+            "> tail -f /var/log/suricata/fast.log",
+            "10/24/2026-10:14:32.412 [**] [1:2020565:2] ET EXPLOIT Possible CVE-2023-XXXX [**] {TCP} 192.168.1.100:4444 -> 10.0.0.5:80",
+            "> status: analyzing payload...",
+            "> status: mitigation deployed via Cloudflare Workers."
+        ];
+
+        const terminalEl = document.getElementById('terminal-content');
+        let currentLine = 0;
+        let currentChar = 0;
+
+        function typeWriter() {
+            if (currentLine < terminalOutput.length) {
+                const line = terminalOutput[currentLine];
+                if (currentChar < line.length) {
+                    terminalEl.innerHTML += line.charAt(currentChar);
+                    currentChar++;
+                    // Slight randomization for typing speed realism
+                    setTimeout(typeWriter, Math.random() * 30 + 10); 
+                } else {
+                    terminalEl.innerHTML += '<br>';
+                    currentLine++;
+                    currentChar = 0;
+                    setTimeout(typeWriter, 200);
+                }
+                terminalEl.scrollTop = terminalEl.scrollHeight;
+            } else {
+                terminalEl.innerHTML += '<span class="terminal-text"></span>';
+            }
+        }
+
+        // Start typing effect after slight delay
+        setTimeout(typeWriter, 1000);
+    </script>
+</body>
 </html>
