@@ -13,8 +13,6 @@
   
   <!-- CSS -->
   <link rel="stylesheet" href="style.css">
-
-
 </head>
 <body>
 
@@ -22,12 +20,13 @@
     <div class="logo">drkingbd<span class="accent-text">.cc</span></div>
     <div class="nav-links">
       <a href="https://t.me/drkingbd" target="_blank">Join Channel</a>
+      <a href="#services">Services</a>
       <a href="#about">About</a>
     </div>
   </nav>
 
   <header class="hero">
-    <h1 class="reveal"><span class="gradient-text">𝗗𝗥𝗞𝗜𝗡𝗚𝗕𝗗 ⚡️</span><br>Official Channel</h1>
+    <h1 class="reveal"><span class="gradient-text">&#x1D417;&#x1D417;&#x1D41A;&#x1D41E;&#x1D427;&#x1D41A;&#x1D41D; &#x26A1;&#xFE0F;</span><br>Official Channel</h1>
     <p class="reveal" style="max-width: 600px; margin: 0 auto 2.5rem;">Welcome to the official DRKINGBD Telegram community. Join us for exclusive content, updates, and more. A safe, secure, and compliant community.</p>
     <div class="hero-actions reveal" style="display: flex; gap: 1rem; justify-content: center; margin-top: 1rem;">
       <a href="https://t.me/drkingbd" target="_blank" class="cta-button" style="display: flex; align-items: center; gap: 0.5rem;">
@@ -40,11 +39,98 @@
     </div>
   </header>
 
+  <!-- Products & Services Section -->
+  <section class="services" id="services">
+    <div class="services-inner">
+      <h2 class="section-title reveal">Our <span class="accent-text">Products &amp; Services</span></h2>
+      <p class="section-sub reveal">Everything you need — all accessible via Telegram bots</p>
+      <div class="services-grid">
 
+        <a href="https://t.me/ProComboShopBot" target="_blank" class="service-card reveal">
+          <div class="service-icon">&#x1F6D2;</div>
+          <div class="service-info">
+            <h3>Combo Shop</h3>
+            <p>Premium combo lists for all your needs. Fast, reliable, and always updated.</p>
+          </div>
+          <span class="service-link">@ProComboShopBot &#x2197;</span>
+        </a>
 
-  <footer>
+        <a href="https://t.me/TheBinShopBot" target="_blank" class="service-card reveal">
+          <div class="service-icon">&#x1F4B3;</div>
+          <div class="service-info">
+            <h3>BIN Store</h3>
+            <p>Comprehensive BIN database to identify card networks, countries, and issuers.</p>
+          </div>
+          <span class="service-link">@TheBinShopBot &#x2197;</span>
+        </a>
+
+        <a href="https://t.me/CraxcipherBot" target="_blank" class="service-card reveal">
+          <div class="service-icon">&#x2699;&#xFE0F;</div>
+          <div class="service-info">
+            <h3>Config Store</h3>
+            <p>Ready-to-use configs for top tools. Optimized and regularly maintained.</p>
+          </div>
+          <span class="service-link">@CraxcipherBot &#x2197;</span>
+        </a>
+
+        <a href="https://t.me/CryptonetPayBot" target="_blank" class="service-card reveal">
+          <div class="service-icon">&#x20BF;</div>
+          <div class="service-info">
+            <h3>Crypto Payment Service</h3>
+            <p>Fast, secure crypto transactions. Accept or send payments with ease.</p>
+          </div>
+          <span class="service-link">@CryptonetPayBot &#x2197;</span>
+        </a>
+
+        <a href="https://t.me/RavenHqBot" target="_blank" class="service-card reveal">
+          <div class="service-icon">&#x2705;</div>
+          <div class="service-info">
+            <h3>CC Checker</h3>
+            <p>Instant card validation with detailed response. Accurate and lightning-fast.</p>
+          </div>
+          <span class="service-link">@RavenHqBot &#x2197;</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <footer id="about">
     <p>&copy; 2026 drkingbd. All rights reserved.</p>
   </footer>
+
+  <!-- ── Support Chat Widget ─────────────────────────────── -->
+  <div class="support-fab" id="supportFab" title="Live Support">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+      <path d="M21.164 2.891C20.655 2.610 20.046 2.628 19.554 2.946L2.179 14.156C1.65 14.498 1.488 15.220 1.782 15.787C2.077 16.353 2.766 16.586 3.376 16.326L8.528 14.129L11.536 19.467C11.792 19.921 12.274 20.198 12.793 20.198H12.809C13.344 20.187 13.829 19.877 14.066 19.387L22.257 4.706C22.565 4.153 22.490 3.475 22.062 3.003C21.820 2.738 21.503 2.806 21.164 2.891Z" fill="white"/>
+    </svg>
+    <span class="fab-label">Support</span>
+  </div>
+
+  <div class="support-chat" id="supportChat">
+    <div class="chat-header">
+      <div class="chat-header-info">
+        <div class="chat-avatar">&#x1F451;</div>
+        <div>
+          <div class="chat-name">DRKINGBD Support</div>
+          <div class="chat-status" id="chatStatus">Online</div>
+        </div>
+      </div>
+      <button class="chat-close" id="chatClose">&#x2715;</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg bot">
+        <span>&#x1F44B; Hello! Welcome to DRKINGBD support. How can we help you today?</span>
+      </div>
+    </div>
+    <div class="chat-input-row">
+      <input type="text" class="chat-input" id="chatInput" placeholder="Type your message…" maxlength="500" autocomplete="off">
+      <button class="chat-send" id="chatSend">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M2 21L23 12L2 3V10L17 12L2 14V21Z" fill="white"/></svg>
+      </button>
+    </div>
+    <div class="chat-footer-note">Chat with <a href="https://t.me/TALK_TO_ANON_BOT" target="_blank">@TALK_TO_ANON_BOT</a></div>
+  </div>
 
   <!-- Scripts -->
   <script src="script.js"></script>

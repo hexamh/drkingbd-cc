@@ -129,91 +129,337 @@ nav {
   box-shadow: 0 0 30px var(--accent-glow);
 }
 
-/* Products Section */
-.products {
-  padding: 8rem 5%;
-  max-width: 1400px;
+/* ── Services Section ───────────────────────────────── */
+.services {
+  padding: 7rem 5% 8rem;
+}
+
+.services-inner {
+  max-width: 1200px;
   margin: 0 auto;
 }
 
 .section-title {
   text-align: center;
-  font-size: 3rem;
-  margin-bottom: 4rem;
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 0.75rem;
 }
 
-.product-grid {
+.section-sub {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin-bottom: 3.5rem;
+}
+
+.services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
 }
 
-.product-card {
+.service-card {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
-  border-radius: 24px;
-  padding: 1.5rem;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  position: relative;
-  overflow: hidden;
-}
-
-.product-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
-  transition: 0.5s;
-}
-
-.product-card:hover {
-  transform: translateY(-10px);
-  border-color: rgba(124, 58, 237, 0.3);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-}
-
-.product-card:hover::before {
-  left: 100%;
-}
-
-.product-image {
-  width: 100%;
-  height: 240px;
-  border-radius: 16px;
-  background: #1a1a2e;
-  margin-bottom: 1.5rem;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.product-card:hover .product-image {
-  transform: scale(1.02);
-}
-
-.product-info {
+  border-radius: 20px;
+  padding: 2rem 1.75rem;
+  text-decoration: none;
+  color: var(--text-primary);
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 0.9rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.product-title {
-  font-size: 1.4rem;
-  font-weight: 600;
+.service-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(56,189,248,0.05));
+  opacity: 0;
+  transition: opacity 0.35s ease;
 }
 
-.product-price {
+.service-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(124, 58, 237, 0.4);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.45), 0 0 0 1px rgba(124,58,237,0.15);
+}
+
+.service-card:hover::before {
+  opacity: 1;
+}
+
+.service-icon {
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.service-info h3 {
   font-size: 1.2rem;
-  color: var(--accent-color);
-  font-weight: 700;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
 }
 
-.product-desc {
+.service-info p {
+  font-size: 0.9rem;
   color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.service-link {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #7c3aed;
+  letter-spacing: 0.02em;
+  margin-top: auto;
+}
+
+/* Animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Footer */
+footer {
+  padding: 4rem 5%;
+  text-align: center;
+  border-top: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+}
+
+/* ── Support Chat FAB ───────────────────────────────── */
+.support-fab {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: linear-gradient(135deg, #7c3aed 0%, #38bdf8 100%);
+  color: white;
+  padding: 0.85rem 1.4rem 0.85rem 1.1rem;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 4px 24px rgba(124,58,237,0.55);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  user-select: none;
+}
+
+.support-fab:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 8px 32px rgba(124,58,237,0.7);
+}
+
+.fab-label {
+  font-family: var(--font-main);
+  font-weight: 600;
   font-size: 0.95rem;
-  line-height: 1.5;
+}
+
+/* ── Support Chat Window ────────────────────────────── */
+.support-chat {
+  position: fixed;
+  bottom: 6rem;
+  right: 2rem;
+  z-index: 9001;
+  width: 360px;
+  max-width: calc(100vw - 2rem);
+  background: #0d0d1f;
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+  transform: translateY(20px) scale(0.96);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s cubic-bezier(0.175,0.885,0.32,1.275), opacity 0.3s ease;
+}
+
+.support-chat.open {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+  pointer-events: all;
+}
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(135deg, #7c3aed22, #38bdf811);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.chat-header-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.chat-avatar {
+  font-size: 1.6rem;
+  width: 42px;
+  height: 42px;
+  background: rgba(124,58,237,0.25);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.chat-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.chat-status {
+  font-size: 0.75rem;
+  color: #4ade80;
+  font-weight: 500;
+}
+
+.chat-close {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 6px;
+  transition: color 0.2s, background 0.2s;
+}
+
+.chat-close:hover {
+  color: white;
+  background: rgba(255,255,255,0.08);
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 1rem 1.25rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  max-height: 300px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(124,58,237,0.4) transparent;
+}
+
+.chat-msg {
+  display: flex;
+  max-width: 82%;
+}
+
+.chat-msg.bot {
+  align-self: flex-start;
+}
+
+.chat-msg.user {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.chat-msg span {
+  display: inline-block;
+  padding: 0.6rem 0.9rem;
+  border-radius: 14px;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  word-break: break-word;
+}
+
+.chat-msg.bot span {
+  background: rgba(255,255,255,0.07);
+  color: var(--text-primary);
+  border-bottom-left-radius: 4px;
+}
+
+.chat-msg.user span {
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.chat-msg.typing span {
+  letter-spacing: 2px;
+  animation: blink 1.2s infinite;
+}
+
+@keyframes blink {
+  0%,100% { opacity: 1; }
+  50%      { opacity: 0.35; }
+}
+
+.chat-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1rem;
+  border-top: 1px solid var(--glass-border);
+}
+
+.chat-input {
+  flex: 1;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--glass-border);
+  border-radius: 50px;
+  color: white;
+  font-family: var(--font-main);
+  font-size: 0.88rem;
+  padding: 0.6rem 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.chat-input:focus {
+  border-color: rgba(124,58,237,0.5);
+}
+
+.chat-send {
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  border: none;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.chat-send:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 12px rgba(124,58,237,0.6);
+}
+
+.chat-footer-note {
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  padding: 0.45rem 1rem 0.65rem;
+}
+
+.chat-footer-note a {
+  color: #7c3aed;
+  text-decoration: none;
 }
 
 /* Overriding Gumroad Button styles to match our premium look */
@@ -237,28 +483,17 @@ nav {
   border-color: rgba(124, 58, 237, 0.5) !important;
 }
 
-/* Animations */
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s ease-out;
-}
-
-.reveal.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Footer */
-footer {
-  padding: 4rem 5%;
-  text-align: center;
-  border-top: 1px solid var(--glass-border);
-  color: var(--text-secondary);
-}
-
 @media (max-width: 768px) {
   .nav-links {
     display: none;
+  }
+  .support-chat {
+    right: 1rem;
+    bottom: 5.5rem;
+    width: calc(100vw - 2rem);
+  }
+  .support-fab {
+    right: 1rem;
+    bottom: 1rem;
   }
 }
