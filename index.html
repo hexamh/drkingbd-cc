@@ -21,6 +21,7 @@
     <div class="nav-links">
       <a href="https://t.me/drkingbd" target="_blank">Join Channel</a>
       <a href="#services">Services</a>
+      <a href="#suggestions">Suggestions</a>
       <a href="#about">About</a>
     </div>
   </nav>
@@ -98,6 +99,40 @@
   <footer id="about">
     <p>&copy; 2026 drkingbd. All rights reserved.</p>
   </footer>
+
+  <!-- ── Suggestion Forum ───────────────────────────────────── -->
+  <section class="suggestions" id="suggestions">
+    <div class="suggestions-inner">
+      <h2 class="section-title reveal">&#x1F4AC; Suggestion <span class="accent-text">Forum</span></h2>
+      <p class="section-sub reveal">Have an idea or feature request for the channel? Drop it here — we read every suggestion!</p>
+
+      <div class="suggest-actions reveal">
+        <button class="cta-button suggest-open-btn" id="suggestOpenBtn">
+          &#x270F;&#xFE0F; Submit a Suggestion
+        </button>
+      </div>
+
+      <!-- Suggestions list -->
+      <div class="suggestions-list" id="suggestionsList">
+        <div class="suggest-loading" id="suggestLoading">Loading suggestions…</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Submit Suggestion Modal -->
+  <div class="suggest-overlay" id="suggestOverlay" aria-hidden="true">
+    <div class="suggest-modal" role="dialog" aria-labelledby="modalTitle">
+      <div class="suggest-modal-header">
+        <h3 id="modalTitle">&#x270F;&#xFE0F; Submit a Suggestion</h3>
+        <button class="suggest-modal-close" id="suggestModalClose" aria-label="Close">&#x2715;</button>
+      </div>
+      <p class="suggest-modal-hint">Share your idea, feature request or feedback for the DRKINGBD channel.</p>
+      <textarea id="suggestText" class="suggest-textarea" placeholder="Your suggestion (5–500 characters)…" maxlength="500" rows="5"></textarea>
+      <div class="suggest-char-count"><span id="suggestCharCount">0</span> / 500</div>
+      <button class="cta-button suggest-submit-btn" id="suggestSubmitBtn">Send Suggestion</button>
+      <div class="suggest-feedback" id="suggestFeedback"></div>
+    </div>
+  </div>
 
   <!-- ── Support Chat Widget ─────────────────────────────── -->
   <div class="support-fab" id="supportFab" title="Live Support">
